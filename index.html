@@ -1,0 +1,3011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="Abdikani Mohamed Abdille" />
+  <title>AI Skill Passport — Beyond Certificates. Prove Your Skills. Unlock Your Future.</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            navy: {
+              950: '#090E1A',
+              900: '#0F172A',
+              800: '#1E293B',
+              700: '#334155',
+            },
+            emerald: {
+              500: '#10B981',
+              600: '#059669',
+              700: '#047857',
+            }
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #F8FAFC;
+      color: #0F172A;
+    }
+    .code-font {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #F1F5F9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #CBD5E1;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94A3B8;
+    }
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      #printable-passport, #printable-passport * {
+        visibility: visible;
+      }
+      #printable-passport {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        margin: 0;
+        padding: 16px;
+        box-shadow: none !important;
+        border: 2px solid #0F172A !important;
+        background: #FFFFFF !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-emerald-500 selection:text-white">
+
+  <!-- Top Navigation Bar -->
+  <header class="bg-navy-900 text-white sticky top-0 z-40 border-b border-slate-800 shadow-sm no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <!-- Brand Logo -->
+        <div class="flex items-center gap-3 cursor-pointer" onclick="navigate('landing')">
+          <div class="w-9 h-9 rounded-lg bg-emerald-500 flex items-center justify-center text-navy-900 font-extrabold shadow-inner">
+            <i data-lucide="shield-check" class="w-5 h-5 stroke-[2.5]"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="font-extrabold tracking-tight text-base sm:text-lg text-white">AI SKILL PASSPORT</span>
+              <span class="hidden md:inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                PLP × ILO Track 1
+              </span>
+            </div>
+            <p class="text-[10px] text-slate-400 hidden sm:block">Beyond Certificates. Prove Your Skills. Unlock Your Future.</p>
+          </div>
+        </div>
+
+        <!-- Desktop Nav Links -->
+        <nav id="desktop-nav" class="hidden lg:flex items-center gap-1 text-sm font-medium"></nav>
+
+        <!-- Auth & Mobile Menu -->
+        <div class="flex items-center gap-2 sm:gap-3">
+          <div id="auth-controls" class="flex items-center gap-2"></div>
+          <button onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-lg text-slate-300 hover:bg-navy-800 hover:text-white focus:outline-none" aria-label="Toggle Menu">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-menu" class="hidden lg:hidden bg-navy-800 border-t border-slate-700 px-4 pt-2 pb-4 space-y-1"></div>
+  </header>
+
+  <!-- Sub-header Status & Role Switcher Bar -->
+  <div id="status-banner" class="bg-slate-900 text-slate-300 text-xs py-1.5 px-4 border-b border-slate-800 no-print">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-2">
+        <span id="db-status-dot" class="w-2 h-2 rounded-full bg-emerald-400"></span>
+        <span id="db-status-text">Local Storage Persistence Active • Owner: Abdikani Mohamed Abdille (abdikanicontacts@gmail.com)</span>
+      </div>
+      <div class="flex items-center gap-3">
+        <span class="text-slate-400 hidden sm:inline">Quick Role Switch (Demo):</span>
+        <button onclick="switchDemoRole('applicant')" class="hover:text-emerald-400 underline font-medium">Applicant</button>
+        <button onclick="switchDemoRole('assessor')" class="hover:text-emerald-400 underline font-medium">Assessor</button>
+        <button onclick="switchDemoRole('employer')" class="hover:text-emerald-400 underline font-medium">Employer</button>
+        <button onclick="resetDemoDataModal()" class="text-rose-300 hover:text-rose-200 underline font-medium">Reset Demo Data</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main View Container -->
+  <main id="app-root" class="flex-1 w-full"></main>
+
+  <!-- Footer -->
+  <footer class="bg-navy-900 text-slate-400 border-t border-slate-800 mt-16 no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div class="col-span-1 md:col-span-2">
+          <div class="flex items-center gap-2 text-white font-bold text-lg mb-2">
+            <i data-lucide="shield-check" class="w-5 h-5 text-emerald-400"></i>
+            <span>AI SKILL PASSPORT</span>
+          </div>
+          <p class="text-sm text-slate-400 max-w-md mb-3">
+            "People should be evaluated by what they can do, not by the papers they possess."
+            Built for Power Learn Project Africa (#1MillionDevs4Africa) &amp; ILO Cohort Mini Hackathon — Track 1: Credential Recognition.
+          </p>
+          <p class="text-xs text-slate-300 mb-4">
+            Owner &amp; Applicant: <strong>Abdikani Mohamed Abdille</strong> •
+            Email: <a href="mailto:abdikanicontacts@gmail.com" class="text-emerald-400 hover:underline">abdikanicontacts@gmail.com</a> •
+            GitHub: <a href="https://github.com/abdikanicontacts-eng" target="_blank" rel="noopener" class="text-emerald-400 hover:underline">https://github.com/abdikanicontacts-eng</a>
+          </p>
+          <div class="flex flex-wrap gap-2 text-xs">
+            <span class="px-2.5 py-1 rounded-full bg-navy-800 text-emerald-400 border border-slate-700">SDG 4: Quality Education</span>
+            <span class="px-2.5 py-1 rounded-full bg-navy-800 text-emerald-400 border border-slate-700">SDG 8: Decent Work &amp; Economic Growth</span>
+          </div>
+        </div>
+        <div>
+          <h4 class="text-white font-semibold text-sm mb-3">Platform Views</h4>
+          <ul class="space-y-2 text-sm">
+            <li><button onclick="navigate('about')" class="hover:text-emerald-400">About &amp; Mission</button></li>
+            <li><button onclick="navigate('skills')" class="hover:text-emerald-400">Skills Catalogue (9 Categories)</button></li>
+            <li><button onclick="navigate('assessment-details')" class="hover:text-emerald-400">Practical Assessment Engine</button></li>
+            <li><button onclick="navigate('passport-verify')" class="hover:text-emerald-400">Public Passport Verification</button></li>
+            <li><button onclick="navigate('opportunities')" class="hover:text-emerald-400">Opportunities &amp; Fellowships</button></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white font-semibold text-sm mb-3">Trust &amp; Governance</h4>
+          <ul class="space-y-2 text-xs text-slate-400 leading-relaxed">
+            <li>• Zero penalty for missing formal certificates.</li>
+            <li>• AI scores never auto-promote to Human-Verified.</li>
+            <li>• Non-accredited practical credential transparency.</li>
+            <li>• Consent-controlled applicant privacy.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-slate-800 mt-8 pt-6 flex flex-col sm:flex-row justify-between items-center text-xs text-slate-500 gap-2">
+        <p>© 2026 AI Skill Passport • Owned by <strong class="text-slate-300">Abdikani Mohamed Abdille</strong> (<span class="text-slate-400">abdikanicontacts@gmail.com</span>). Your Skills Matter. Your Future Matters.</p>
+        <div class="flex gap-4">
+          <button onclick="navigate('settings')" class="hover:text-slate-300">Privacy &amp; Consent</button>
+          <button onclick="navigate('settings')" class="hover:text-slate-300">System Audit Trail</button>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="fixed bottom-4 right-4 z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-none no-print"></div>
+
+  <!-- Confirmation / Modal Dialog -->
+  <div id="modal-backdrop" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 hidden items-center justify-center p-4 no-print">
+    <div id="modal-box" class="bg-white rounded-2xl shadow-2xl border border-slate-200 max-w-lg w-full overflow-hidden transform transition-all">
+      <div class="px-6 py-4 bg-navy-900 text-white flex items-center justify-between">
+        <h3 id="modal-title" class="font-bold text-base">Confirm Action</h3>
+        <button onclick="closeModal()" class="text-slate-400 hover:text-white" aria-label="Close Modal">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <div id="modal-body" class="p-6 text-sm text-slate-700 space-y-4"></div>
+      <div id="modal-footer" class="px-6 py-3 bg-slate-50 border-t border-slate-200 flex justify-end gap-2"></div>
+    </div>
+  </div>
+
+  <!-- Main Application Script -->
+  <script>
+    const STORAGE_KEY = "ai_skill_passport_state_v2_abdikani";
+
+    const SKILL_CATEGORIES = [
+      "Web Development",
+      "Graphic Design",
+      "Data Analysis",
+      "Digital Marketing",
+      "Video Editing",
+      "Virtual Assistance",
+      "Translation",
+      "Programming",
+      "AI and Digital Skills"
+    ];
+
+    const WEB_DEV_RUBRIC = [
+      { id: "html", name: "HTML Structure", weight: 20, description: "Semantic HTML5 tags (<header>, <nav>, <main>, <section>, <article>, <footer>), valid nesting, and clear document hierarchy." },
+      { id: "css", name: "CSS Styling", weight: 20, description: "Clean layout architecture (Flexbox/Grid), consistent typography, color contrast, spacing, and visual hierarchy." },
+      { id: "responsive", name: "Responsive Design", weight: 25, description: "Fluid adaptation across mobile (375px), tablet (768px), and desktop (1280px+) viewports without horizontal overflow." },
+      { id: "a11y", name: "Accessibility and Usability", weight: 15, description: "Alt attributes, ARIA labels, keyboard focus visibility, legible contrast ratios, and intuitive navigation." },
+      { id: "quality", name: "Code Quality", weight: 10, description: "Maintainable organization, meaningful class naming, clean indentation, and absence of broken tags." },
+      { id: "explanation", name: "Project Explanation", weight: 10, description: "Clear articulation of architectural choices, responsive breakpoints, accessibility decisions, and trade-offs." }
+    ];
+
+    const INITIAL_SKILLS = [
+      { id: "sk-1", name: "Responsive Web Development (HTML/CSS)", category: "Web Development", level: "Intermediate", hasPracticalAssessment: true, assessmentId: "asm-web-portfolio", learnersCount: 1420 },
+      { id: "sk-2", name: "Frontend JavaScript & DOM Engineering", category: "Web Development", level: "Intermediate", hasPracticalAssessment: false, learnersCount: 980 },
+      { id: "sk-3", name: "Brand Identity & Vector Illustration", category: "Graphic Design", level: "Beginner-Intermediate", hasPracticalAssessment: false, learnersCount: 740 },
+      { id: "sk-4", name: "UI/UX Wireframing & Prototyping", category: "Graphic Design", level: "Intermediate", hasPracticalAssessment: false, learnersCount: 615 },
+      { id: "sk-5", name: "Spreadsheet Modeling & Data Cleaning", category: "Data Analysis", level: "Intermediate", hasPracticalAssessment: false, learnersCount: 890 },
+      { id: "sk-6", name: "SQL Queries & Business Dashboards", category: "Data Analysis", level: "Advanced", hasPracticalAssessment: false, learnersCount: 530 },
+      { id: "sk-7", name: "SEO & Content Growth Strategy", category: "Digital Marketing", level: "Beginner", hasPracticalAssessment: false, learnersCount: 670 },
+      { id: "sk-8", name: "Short-Form Documentary & Social Video Editing", category: "Video Editing", level: "Intermediate", hasPracticalAssessment: false, learnersCount: 490 },
+      { id: "sk-9", name: "Remote Executive Operations & Calendar Systems", category: "Virtual Assistance", level: "Beginner-Intermediate", hasPracticalAssessment: false, learnersCount: 810 },
+      { id: "sk-10", name: "Swahili–English–French Localization & Translation", category: "Translation", level: "Advanced", hasPracticalAssessment: false, learnersCount: 425 },
+      { id: "sk-11", name: "Python Automation & Scripting", category: "Programming", level: "Intermediate", hasPracticalAssessment: false, learnersCount: 1120 },
+      { id: "sk-12", name: "Prompt Engineering & AI Workflow Automation", category: "AI and Digital Skills", level: "Intermediate", hasPracticalAssessment: false, learnersCount: 1340 }
+    ];
+
+    const SAMPLE_PORTFOLIO_CODE = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Abdikani Mohamed Abdille — Frontend Web Developer</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --accent: #10b981;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      padding: 1.25rem 5%;
+      border-bottom: 1px solid #334155;
+    }
+    nav a {
+      color: var(--text);
+      text-decoration: none;
+      margin-left: 1.25rem;
+      font-size: 0.95rem;
+    }
+    nav a:focus, nav a:hover { color: var(--accent); outline: 2px solid var(--accent); outline-offset: 4px; }
+    .hero {
+      padding: 4rem 5%;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .badge {
+      display: inline-block;
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--accent);
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+    }
+    h1 { font-size: clamp(2rem, 5vw, 3.25rem); line-height: 1.15; margin-bottom: 1rem; }
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      padding: 2rem 5% 4rem;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .card {
+      background: var(--surface);
+      padding: 1.5rem;
+      border-radius: 0.75rem;
+      border: 1px solid #334155;
+    }
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--muted);
+      border-top: 1px solid #334155;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <strong>Abdikani Mohamed Abdille (AM)</strong>
+    <nav aria-label="Primary Navigation">
+      <a href="#work">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+  <main>
+    <section class="hero">
+      <span class="badge">Available for Remote &amp; Local Junior Web Roles</span>
+      <h1>Building accessible, fast web applications for community impact.</h1>
+      <p>Self-taught frontend developer and builder (abdikanicontacts-eng). Focused on semantic HTML5, responsive CSS Grid layouts, and mobile-first usability.</p>
+    </section>
+    <section id="work" class="projects" aria-label="Featured Projects">
+      <article class="card">
+        <h2>Community Health Clinic Directory</h2>
+        <p>Mobile-first offline-friendly directory helping displaced families locate free maternal and pediatric clinics.</p>
+      </article>
+      <article class="card">
+        <h2>Solar Micro-Grid Tariff Calculator</h2>
+        <p>Accessible web calculator built with clean semantic forms and high-contrast typography.</p>
+      </article>
+    </section>
+  </main>
+  <footer id="contact">
+    <p>Contact: abdikanicontacts@gmail.com • GitHub: https://github.com/abdikanicontacts-eng</p>
+  </footer>
+</body>
+</html>`;
+
+    function createDefaultState() {
+      return {
+        currentView: "landing",
+        currentUserUid: "demo-applicant-1",
+        isLoadingAI: false,
+        selectedPassportId: "ASP-2026-8492",
+        selectedSubmissionId: "sub-demo-1",
+        activePreviewMode: "desktop",
+        skillSearch: "",
+        skillCategoryFilter: "All",
+        candidateSkillFilter: "",
+        candidateStatusFilter: "All",
+        evidenceCategoryFilter: "All",
+
+        users: [
+          {
+            uid: "demo-applicant-1",
+            name: "Abdikani Mohamed Abdille",
+            email: "abdikanicontacts@gmail.com",
+            githubHandle: "abdikanicontacts-eng",
+            initials: "AM",
+            role: "applicant",
+            isDemo: true
+          },
+          {
+            uid: "demo-assessor-1",
+            name: "Dr. Samuel Ochieng",
+            email: "s.ochieng@verifier-demo.org",
+            role: "assessor",
+            title: "Senior Web Engineer & ILO Skills Assessor",
+            organization: "East Africa Digital Skills Guild",
+            isDemo: true
+          },
+          {
+            uid: "demo-employer-1",
+            name: "Grace Mwangi",
+            email: "talent@savannahcloud-demo.io",
+            role: "employer",
+            company: "Savannah Cloud Solutions",
+            isDemo: true
+          }
+        ],
+
+        applicantProfiles: {
+          "demo-applicant-1": {
+            uid: "demo-applicant-1",
+            passportId: "ASP-2026-8492",
+            name: "Abdikani Mohamed Abdille",
+            email: "abdikanicontacts@gmail.com",
+            initials: "AM",
+            headline: "Frontend Web Developer & Digital Accessibility Advocate",
+            location: "Nairobi, Kenya",
+            bio: "Resilient self-taught web developer and builder (abdikanicontacts-eng) creating lightweight, mobile-first web applications and community tools. Formal paper certificates are not required to validate practical work; competency is demonstrated through live code, architecture explanations, and independent verification.",
+            certificatesUnavailable: true,
+            certificatesNote: "Formal educational certificates unavailable/inaccessible; practical builds, repository work, and structured explanations provided instead.",
+            selectedSkills: [
+              { skillId: "sk-1", name: "Responsive Web Development (HTML/CSS)", category: "Web Development", status: "AI-Assessed", level: "Proficient", score: 89 },
+              { skillId: "sk-2", name: "Frontend JavaScript & DOM Engineering", category: "Web Development", status: "Self-Reported", level: "Intermediate", score: null },
+              { skillId: "sk-10", name: "Swahili–English–French Localization & Translation", category: "Translation", status: "Self-Reported", level: "Advanced", score: null }
+            ],
+            experience: [
+              { role: "Freelance Web & UI Builder", org: "Community Enterprise Hub", period: "2024 – Present", details: "Built responsive web interfaces and accessible landing pages for community initiatives." },
+              { role: "Digital Literacy Peer Mentor", org: "Youth Tech Lab", period: "2023 – 2024", details: "Mentored peers in semantic HTML, CSS layouts, and practical digital workflows." }
+            ],
+            education: [
+              { program: "Power Learn Project Africa — Software Development Track", institution: "PLP Africa (#1MillionDevs4Africa)", year: "2025", status: "Practical Track" }
+            ],
+            portfolioLinks: {
+              website: "https://abdikanicontacts-eng.github.io",
+              github: "https://github.com/abdikanicontacts-eng",
+              email: "abdikanicontacts@gmail.com"
+            },
+            privacy: {
+              publicPassport: true,
+              allowEmployerContact: true,
+              showEvidenceLinks: true
+            },
+            isDemo: true
+          }
+        },
+
+        skills: [...INITIAL_SKILLS],
+
+        assessments: [
+          {
+            id: "asm-web-portfolio",
+            title: "Build a Responsive Personal Portfolio Website",
+            category: "Web Development",
+            difficulty: "Intermediate",
+            estimatedTime: "3–5 Hours",
+            skillsAssessed: [
+              "HTML semantic structure",
+              "CSS styling and layout",
+              "Responsive mobile design",
+              "Responsive desktop design",
+              "Accessibility and usability",
+              "Ability to explain and demonstrate submitted work"
+            ],
+            instructions: "Design and build a personal portfolio webpage from scratch using semantic HTML5 and modern CSS (Flexbox or CSS Grid). Your portfolio must present your professional bio, practical project highlights, skills overview, and contact details without relying on heavy frameworks.",
+            requirements: [
+              "Use semantic landmark elements (<header>, <nav>, <main>, <section>, <article>, <footer>).",
+              "Implement responsive layout rules that adapt smoothly between mobile (375px) and desktop (1280px+) screens without horizontal scrolling.",
+              "Ensure accessible color contrast, keyboard focus states, and descriptive alt/aria labels.",
+              "Provide a live URL or GitHub URL, source code, screenshots, optional demo video, and a clear written explanation of your implementation."
+            ],
+            rubric: WEB_DEV_RUBRIC
+          }
+        ],
+
+        assessmentSubmissions: [
+          {
+            id: "sub-demo-1",
+            applicantUid: "demo-applicant-1",
+            applicantName: "Abdikani Mohamed Abdille",
+            passportId: "ASP-2026-8492",
+            assessmentId: "asm-web-portfolio",
+            assessmentTitle: "Build a Responsive Personal Portfolio Website",
+            skillName: "Responsive Web Development (HTML/CSS)",
+            status: "AI-Assessed",
+            submittedAt: "2026-11-20T10:15:00Z",
+            evidence: {
+              category: "Source code",
+              liveUrl: "https://abdikanicontacts-eng.github.io",
+              repoUrl: "https://github.com/abdikanicontacts-eng",
+              sourceCode: SAMPLE_PORTFOLIO_CODE,
+              screenshots: [
+                "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=800&q=80",
+                "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80"
+              ],
+              explanation: "Structured the portfolio with semantic HTML5 landmarks (<header>, <nav>, <main>, <section>, <article>, <footer>), CSS Grid auto-fit layouts, fluid clamp() typography, and visible keyboard focus outlines so the page adapts cleanly across mobile (375px) and desktop (1280px+) screens.",
+              demoVideoUrl: "https://github.com/abdikanicontacts-eng",
+              workReference: "Abdikani Mohamed Abdille (abdikanicontacts@gmail.com)"
+            },
+            aiResult: {
+              overallScore: 89,
+              evaluatedAt: "2026-11-20T10:16:12Z",
+              methodNote: "Static source code & explanation analysis via rubric engine (no external headless browser execution claimed; AI-Assessed status does not equal Human-Verified).",
+              criteriaScores: [
+                { id: "html", name: "HTML Structure", weight: 20, score: 19, max: 20, evidence: "Uses <header>, <nav>, <main>, <section>, <article>, and <footer> with lang='en'." },
+                { id: "css", name: "CSS Styling", weight: 20, score: 18, max: 20, evidence: "Clean CSS custom properties (--bg, --surface, --accent), spacing, and card layout." },
+                { id: "responsive", name: "Responsive Design", weight: 25, score: 23, max: 25, evidence: "Includes viewport meta tag, clamp() scaling, and auto-fit CSS Grid with flex-wrap header." },
+                { id: "a11y", name: "Accessibility and Usability", weight: 15, score: 13, max: 15, evidence: "Provides aria-label on navigation and keyboard :focus outlines." },
+                { id: "quality", name: "Code Quality", weight: 10, score: 8, max: 10, evidence: "Well-organized semantic markup and clean styling rules." },
+                { id: "explanation", name: "Project Explanation", weight: 10, score: 8, max: 10, evidence: "Explains semantic landmarks, CSS Grid responsiveness, and focus visibility." }
+              ],
+              strengths: [
+                "Clear semantic HTML5 landmark hierarchy and accessible navigation labeling.",
+                "Responsive CSS Grid and clamp() typography supporting mobile and desktop viewports.",
+                "Includes contact details (abdikanicontacts@gmail.com) and GitHub profile (https://github.com/abdikanicontacts-eng)."
+              ],
+              weaknesses: [
+                "Adding a skip-to-content anchor link can further improve keyboard navigation.",
+                "Adding explicit mobile screenshot captions helps human assessors verify visual states quickly."
+              ],
+              recommendations: [
+                "Add a skip-to-main-content link at the top of <body>.",
+                "Submit for Human Assessor review to earn a Human-Verified badge on your Digital Skills Passport."
+              ],
+              learningResources: [
+                { title: "MDN Web Docs: Responsive Design & CSS Grid", url: "https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Responsive_Design" },
+                { title: "W3C WAI: Web Accessibility Fundamentals", url: "https://www.w3.org/WAI/fundamentals/accessibility-intro/" }
+              ]
+            },
+            humanVerification: null,
+            isDemo: true
+          }
+        ],
+
+        opportunities: [
+          {
+            id: "opp-1",
+            title: "Junior Frontend Web Developer (Remote / Hybrid)",
+            company: "Savannah Cloud Solutions",
+            employerUid: "demo-employer-1",
+            location: "Nairobi / Remote (East Africa)",
+            type: "Full-Time Entry Role",
+            requiredSkill: "Web Development",
+            acceptsNoCertificates: true,
+            description: "Build accessible, responsive web interfaces for SMEs and community platforms. No formal diploma required—applicants with verified practical evidence and an AI Skill Passport are prioritized.",
+            stipendOrSalary: "$650 – $900 / month",
+            postedAt: "2026-11-18",
+            isDemo: true
+          },
+          {
+            id: "opp-2",
+            title: "Digital Inclusion & Web Accessibility Fellowship",
+            company: "PLP Africa × CivicTech Lab",
+            employerUid: "demo-employer-1",
+            location: "Remote (Pan-African)",
+            type: "Paid 6-Month Fellowship",
+            requiredSkill: "Web Development",
+            acceptsNoCertificates: true,
+            description: "Designed for displaced, refugee, and self-taught developers building open-source public tools with mentorship.",
+            stipendOrSalary: "$400 / month stipend",
+            postedAt: "2026-11-21",
+            isDemo: true
+          },
+          {
+            id: "opp-3",
+            title: "Multilingual Content & Localization Specialist",
+            company: "Horizon Humanitarian Connect",
+            employerUid: "demo-employer-1",
+            location: "Remote",
+            type: "Contract / Part-Time",
+            requiredSkill: "Translation",
+            acceptsNoCertificates: true,
+            description: "Translate and localize community guides and digital resources across English, Swahili, and French.",
+            stipendOrSalary: "$25 / hour",
+            postedAt: "2026-11-22",
+            isDemo: true
+          }
+        ],
+
+        applications: [],
+        contactRequests: [],
+
+        auditLogs: [
+          {
+            id: "log-1",
+            timestamp: "2026-11-20 10:15 UTC",
+            actor: "Abdikani Mohamed Abdille (Applicant)",
+            action: "SUBMITTED_EVIDENCE",
+            target: "ASP-2026-8492 — Build a Responsive Personal Portfolio Website",
+            details: "Submitted source code, GitHub URL (https://github.com/abdikanicontacts-eng), and implementation explanation."
+          },
+          {
+            id: "log-2",
+            timestamp: "2026-11-20 10:16 UTC",
+            actor: "AI Assessment Assistant",
+            action: "AI_RUBRIC_EVALUATION",
+            target: "ASP-2026-8492 — Score: 89/100 (AI-Assessed)",
+            details: "Evaluated against 6-criterion Web Development rubric. Status set to AI-Assessed (awaiting human verification)."
+          }
+        ]
+      };
+    }
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          return { ...createDefaultState(), ...parsed };
+        }
+      } catch (err) {
+        console.warn("Failed to read localStorage, using fresh state:", err);
+      }
+      return createDefaultState();
+    }
+
+    let state = loadState();
+
+    function saveState() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      } catch (err) {
+        console.warn("Failed to persist state to localStorage:", err);
+      }
+    }
+
+    function getCurrentUser() {
+      if (!state.currentUserUid) return null;
+      return state.users.find(u => u.uid === state.currentUserUid) || null;
+    }
+
+    function getActiveApplicantProfile() {
+      const user = getCurrentUser();
+      if (user && user.role === "applicant" && state.applicantProfiles[user.uid]) {
+        return state.applicantProfiles[user.uid];
+      }
+      return state.applicantProfiles["demo-applicant-1"];
+    }
+
+    function addAuditLog(actor, action, target, details) {
+      const entry = {
+        id: "audit-" + Date.now() + "-" + Math.random().toString(36).slice(2, 6),
+        timestamp: new Date().toISOString().replace("T", " ").slice(0, 16) + " UTC",
+        actor,
+        action,
+        target,
+        details
+      };
+      state.auditLogs.unshift(entry);
+      saveState();
+    }
+
+    function showToast(message, type = "success") {
+      const container = document.getElementById("toast-container");
+      const toast = document.createElement("div");
+      const styles = {
+        success: "bg-navy-900 border-emerald-500 text-white",
+        error: "bg-rose-950 border-rose-500 text-white",
+        info: "bg-slate-800 border-sky-400 text-white"
+      };
+      toast.className = `pointer-events-auto border-l-4 ${styles[type] || styles.info} px-4 py-3 rounded-lg shadow-xl flex items-start justify-between gap-3 text-xs sm:text-sm`;
+      toast.innerHTML = `
+        <div class="flex items-center gap-2.5">
+          <span class="w-2 h-2 rounded-full ${type === "error" ? "bg-rose-400" : "bg-emerald-400"} shrink-0"></span>
+          <span>${escapeHtml(message)}</span>
+        </div>
+        <button onclick="this.parentElement.remove()" class="text-slate-400 hover:text-white font-bold">&times;</button>
+      `;
+      container.appendChild(toast);
+      setTimeout(() => {
+        if (toast.parentElement) toast.remove();
+      }, 4200);
+    }
+
+    function openModal(title, bodyHtml, footerHtml) {
+      document.getElementById("modal-title").textContent = title;
+      document.getElementById("modal-body").innerHTML = bodyHtml;
+      document.getElementById("modal-footer").innerHTML = footerHtml;
+      const backdrop = document.getElementById("modal-backdrop");
+      backdrop.classList.remove("hidden");
+      backdrop.classList.add("flex");
+      if (window.lucide) lucide.createIcons();
+    }
+
+    window.closeModal = function() {
+      const backdrop = document.getElementById("modal-backdrop");
+      backdrop.classList.add("hidden");
+      backdrop.classList.remove("flex");
+    };
+
+    window.resetDemoDataModal = function() {
+      openModal(
+        "Reset Application Data?",
+        `<p class="text-sm text-slate-700">This will restore the default state in <strong>localStorage</strong> with <strong>Abdikani Mohamed Abdille</strong> (<code>abdikanicontacts@gmail.com</code>, <code>https://github.com/abdikanicontacts-eng</code>) and clear custom test entries.</p>`,
+        `
+          <button onclick="closeModal()" class="px-4 py-2 rounded-xl border border-slate-300 text-xs font-semibold">Cancel</button>
+          <button onclick="confirmResetDemoData()" class="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold">Reset Now</button>
+        `
+      );
+    };
+
+    window.confirmResetDemoData = function() {
+      localStorage.removeItem(STORAGE_KEY);
+      state = createDefaultState();
+      saveState();
+      closeModal();
+      showToast("Demo data restored cleanly.", "info");
+      renderApp();
+    };
+
+    function escapeHtml(str) {
+      if (str === null || str === undefined) return "";
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function getStatusBadge(status) {
+      const map = {
+        "Not Submitted": "bg-slate-100 text-slate-700 border-slate-300",
+        "Submitted": "bg-sky-50 text-sky-700 border-sky-200",
+        "Under Review": "bg-amber-50 text-amber-800 border-amber-300",
+        "Additional Evidence Required": "bg-orange-50 text-orange-800 border-orange-300",
+        "AI-Assessed": "bg-indigo-50 text-indigo-700 border-indigo-200",
+        "Human-Verified": "bg-emerald-50 text-emerald-800 border-emerald-300",
+        "Rejected": "bg-rose-50 text-rose-700 border-rose-200",
+        "Self-Reported": "bg-slate-100 text-slate-700 border-slate-300"
+      };
+      const icons = {
+        "Human-Verified": "badge-check",
+        "AI-Assessed": "cpu",
+        "Self-Reported": "user",
+        "Submitted": "send",
+        "Under Review": "clock",
+        "Additional Evidence Required": "alert-circle",
+        "Rejected": "x-circle"
+      };
+      const cls = map[status] || map["Not Submitted"];
+      const icon = icons[status] || "circle";
+      return `<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold border ${cls}">
+        <i data-lucide="${icon}" class="w-3.5 h-3.5"></i>
+        ${escapeHtml(status)}
+      </span>`;
+    }
+
+    function calculateProfileCompletion(profile) {
+      if (!profile) return 0;
+      let score = 0;
+      if (profile.name) score += 15;
+      if (profile.location) score += 15;
+      if (profile.bio && profile.bio.length > 20) score += 20;
+      if (profile.selectedSkills && profile.selectedSkills.length > 0) score += 20;
+      if (profile.experience && profile.experience.length > 0) score += 15;
+      if (profile.portfolioLinks && (profile.portfolioLinks.website || profile.portfolioLinks.github)) score += 15;
+      return Math.min(100, score);
+    }
+
+    // AI Rubric Assessment Engine (Static Code & Explanation Rubric Inspector)
+    function evaluateSubmissionWithRubric(submission) {
+      const code = (submission.evidence.sourceCode || "").toLowerCase();
+      const explanation = (submission.evidence.explanation || "").trim();
+
+      const semanticTags = ["<header", "<nav", "<main", "<section", "<article", "<footer"];
+      const semanticCount = semanticTags.filter(t => code.includes(t)).length;
+      const htmlScore = Math.min(20, Math.max(8, Math.round((semanticCount / semanticTags.length) * 20)));
+
+      const hasStyle = code.includes("<style") || code.includes("display:") || code.includes("grid") || code.includes("flex");
+      const cssScore = hasStyle ? (code.includes("var(--") || code.includes("grid") ? 19 : 16) : 9;
+
+      const hasViewport = code.includes("viewport");
+      const hasResponsiveRules = code.includes("@media") || code.includes("clamp(") || code.includes("auto-fit") || code.includes("minmax");
+      const respScore = (hasViewport ? 12 : 5) + (hasResponsiveRules ? 12 : 4);
+
+      const hasA11y = code.includes("aria-") || code.includes("alt=") || code.includes(":focus");
+      const a11yScore = hasA11y ? 13 : 8;
+
+      const qualityScore = code.length > 250 && code.includes("</html>") ? 9 : 6;
+      const expScore = explanation.length > 100 ? 9 : explanation.length > 35 ? 7 : 4;
+
+      const overallScore = htmlScore + cssScore + respScore + a11yScore + qualityScore + expScore;
+
+      return {
+        overallScore,
+        evaluatedAt: new Date().toISOString(),
+        methodNote: "Static source-code & explanation evaluation against the 100% Web Development rubric (code statically inspected; not executed in an external headless browser). AI-Assessed status does not constitute Human Verification.",
+        criteriaScores: [
+          { id: "html", name: "HTML Structure", weight: 20, score: htmlScore, max: 20, evidence: `Detected ${semanticCount}/6 semantic HTML5 landmark elements in submitted markup.` },
+          { id: "css", name: "CSS Styling", weight: 20, score: cssScore, max: 20, evidence: hasStyle ? "CSS styling rules and layout structure inspected in source code." : "Minimal CSS styling tokens found." },
+          { id: "responsive", name: "Responsive Design", weight: 25, score: respScore, max: 25, evidence: `${hasViewport ? "Viewport meta tag present." : "Missing viewport meta tag."} ${hasResponsiveRules ? "Responsive layout rules detected." : "Consider adding @media queries or fluid Grid/Flexbox."}` },
+          { id: "a11y", name: "Accessibility and Usability", weight: 15, score: a11yScore, max: 15, evidence: hasA11y ? "Accessibility attributes or focus styles detected." : "Add alt text, aria-label attributes, and visible :focus states." },
+          { id: "quality", name: "Code Quality", weight: 10, score: qualityScore, max: 10, evidence: `Submitted ${submission.evidence.sourceCode?.length || 0} characters of source code.` },
+          { id: "explanation", name: "Project Explanation", weight: 10, score: expScore, max: 10, evidence: explanation.length > 75 ? "Applicant explained structure and responsive/accessibility choices." : "Provide a fuller explanation of design trade-offs." }
+        ],
+        strengths: [
+          semanticCount >= 4 ? "Uses semantic HTML5 landmarks for structured document outline." : "Includes baseline HTML document structure.",
+          hasResponsiveRules ? "Applies responsive layout techniques for mobile and desktop screens." : "Organizes sections into distinct content blocks.",
+          explanation.length > 50 ? "Provides clear explanation of implementation choices." : "Includes verifiable source code artifact."
+        ],
+        weaknesses: [
+          semanticCount < 6 ? "Include all core semantic landmarks (<header>, <nav>, <main>, <section>, <article>, <footer>)." : "Add a skip-to-content link for keyboard-only navigation.",
+          !hasResponsiveRules ? "Add responsive media queries or CSS Grid/Flexbox layout rules." : "Verify touch-target spacing on small mobile screens."
+        ],
+        recommendations: [
+          "Ensure <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" /> is present.",
+          "Include clear screenshots and verify keyboard focus navigation.",
+          "Request Human Assessor verification to earn a Human-Verified credential badge."
+        ],
+        learningResources: [
+          { title: "MDN Web Docs: Responsive Design & CSS Grid", url: "https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Responsive_Design" },
+          { title: "W3C WAI: Web Accessibility Fundamentals", url: "https://www.w3.org/WAI/fundamentals/accessibility-intro/" }
+        ]
+      };
+    }
+
+    function runAiAssessmentForSubmission(submission) {
+      state.isLoadingAI = true;
+      renderApp();
+
+      setTimeout(() => {
+        const result = evaluateSubmissionWithRubric(submission);
+        submission.aiResult = result;
+        submission.status = "AI-Assessed";
+
+        const profile = state.applicantProfiles[submission.applicantUid];
+        if (profile) {
+          const skillObj = profile.selectedSkills.find(s => s.name === submission.skillName || s.category === "Web Development");
+          if (skillObj && skillObj.status !== "Human-Verified") {
+            skillObj.status = "AI-Assessed";
+            skillObj.score = result.overallScore;
+            skillObj.level = result.overallScore >= 85 ? "Proficient" : result.overallScore >= 70 ? "Intermediate" : "Developing";
+          }
+        }
+
+        addAuditLog(
+          "AI Assessment Assistant",
+          "AI_ASSESSMENT_COMPLETED",
+          `${submission.passportId} — ${submission.assessmentTitle}`,
+          `AI Rubric Score: ${result.overallScore}/100. Status set to AI-Assessed (Human verification remains separate).`
+        );
+
+        state.isLoadingAI = false;
+        saveState();
+        showToast(`AI Rubric Evaluation complete: ${result.overallScore}/100 (Status: AI-Assessed)`, "success");
+        navigate("assessment-results", submission.id);
+      }, 450);
+    }
+
+    // Navigation & Role Controls
+    window.navigate = function(view, param = null) {
+      state.currentView = view;
+      if (view === "passport" || view === "passport-verify") {
+        if (param) state.selectedPassportId = param;
+      }
+      if (view === "assessment-results" && param) {
+        state.selectedSubmissionId = param;
+      }
+      const mobileMenu = document.getElementById("mobile-menu");
+      if (mobileMenu) mobileMenu.classList.add("hidden");
+      saveState();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      renderApp();
+    };
+
+    window.toggleMobileMenu = function() {
+      const mobileMenu = document.getElementById("mobile-menu");
+      if (mobileMenu) mobileMenu.classList.toggle("hidden");
+    };
+
+    window.switchDemoRole = function(role) {
+      const demoUser = state.users.find(u => u.role === role && u.isDemo);
+      if (demoUser) {
+        state.currentUserUid = demoUser.uid;
+        saveState();
+        showToast(`Switched session to ${demoUser.name} (${role.toUpperCase()})`, "info");
+        if (role === "applicant") navigate("applicant-dashboard");
+        else if (role === "assessor") navigate("assessor-dashboard");
+        else navigate("employer-dashboard");
+      }
+    };
+
+    window.logoutUser = function() {
+      state.currentUserUid = null;
+      saveState();
+      showToast("Signed out of session.", "info");
+      navigate("landing");
+    };
+
+    function renderNavigation() {
+      const desktopNav = document.getElementById("desktop-nav");
+      const mobileNav = document.getElementById("mobile-menu");
+      const authControls = document.getElementById("auth-controls");
+      const currentUser = getCurrentUser();
+      const role = currentUser?.role || "guest";
+
+      const links = [
+        { id: "landing", label: "Home" },
+        { id: "about", label: "Mission" },
+        { id: "skills", label: "Skills Catalogue" },
+        { id: "assessment-details", label: "Assessments" },
+        { id: "opportunities", label: "Opportunities" }
+      ];
+
+      if (role === "applicant") {
+        links.splice(2, 0, { id: "applicant-dashboard", label: "Dashboard" });
+        links.push({ id: "passport", label: "My Passport" });
+      } else if (role === "assessor") {
+        links.splice(2, 0, { id: "assessor-dashboard", label: "Assessor Queue" });
+        links.push({ id: "passport-verify", label: "Verify Passport" });
+      } else if (role === "employer") {
+        links.splice(2, 0, { id: "employer-dashboard", label: "Talent Discovery" });
+        links.push({ id: "passport-verify", label: "Verify Passport" });
+      } else {
+        links.push({ id: "passport-verify", label: "Verify Passport" });
+      }
+
+      desktopNav.innerHTML = links.map(link => {
+        const active = state.currentView === link.id;
+        return `<button onclick="navigate('${link.id}')" class="px-3 py-2 rounded-lg transition-colors ${active ? "bg-emerald-500/20 text-emerald-300 font-semibold" : "text-slate-300 hover:text-white hover:bg-navy-800"}">
+          ${link.label}
+        </button>`;
+      }).join("");
+
+      mobileNav.innerHTML = links.map(link => {
+        const active = state.currentView === link.id;
+        return `<button onclick="navigate('${link.id}')" class="block w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium ${active ? "bg-emerald-600 text-white" : "text-slate-200 hover:bg-navy-700"}">
+          ${link.label}
+        </button>`;
+      }).join("");
+
+      if (currentUser) {
+        const roleBadgeColors = {
+          applicant: "bg-emerald-500/20 text-emerald-300 border-emerald-500/40",
+          assessor: "bg-amber-500/20 text-amber-300 border-amber-500/40",
+          employer: "bg-sky-500/20 text-sky-300 border-sky-500/40"
+        };
+        authControls.innerHTML = `
+          <button onclick="navigate('settings')" class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-navy-800 border border-slate-700 hover:border-emerald-500/50 text-xs">
+            <span class="font-semibold text-white">${escapeHtml(currentUser.name)}</span>
+            <span class="px-1.5 py-0.5 rounded text-[10px] uppercase font-bold border ${roleBadgeColors[role] || ""}">${role}</span>
+          </button>
+          <button onclick="logoutUser()" class="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-navy-800 border border-slate-700">
+            Sign Out
+          </button>
+        `;
+      } else {
+        authControls.innerHTML = `
+          <button onclick="navigate('login')" class="px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium text-slate-200 hover:text-white hover:bg-navy-800">
+            Log In
+          </button>
+          <button onclick="navigate('register')" class="px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-semibold bg-emerald-500 hover:bg-emerald-600 text-navy-900 shadow-sm">
+            Get Started
+          </button>
+        `;
+      }
+    }
+
+    // 1. LANDING PAGE
+    function renderLandingView() {
+      return `
+        <section class="bg-navy-900 text-white relative overflow-hidden border-b border-slate-800">
+          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+              <div class="lg:col-span-7 space-y-6">
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-semibold">
+                  <i data-lucide="award" class="w-4 h-4"></i>
+                  <span>Power Learn Project Africa × ILO Hackathon — Track 1: Credential Recognition</span>
+                </div>
+                <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">
+                  Beyond Certificates. <span class="text-emerald-400">Prove Your Skills.</span> Unlock Your Future.
+                </h1>
+                <p class="text-base sm:text-lg text-slate-300 max-w-2xl leading-relaxed">
+                  Refugees, displaced professionals, and self-taught builders deserve recognition for real-world capability even when formal paper certificates are missing.
+                  <strong class="text-white">AI Skill Passport</strong> validates practical work through structured assessments, rubric scoring, and human verification.
+                </p>
+                <div class="flex flex-wrap gap-3 pt-2">
+                  <button onclick="navigate('assessment-workspace')" class="px-6 py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-navy-900 font-bold text-sm sm:text-base shadow-lg shadow-emerald-500/20 flex items-center gap-2 transition">
+                    <i data-lucide="code-2" class="w-5 h-5"></i>
+                    Start Practical Assessment
+                  </button>
+                  <button onclick="navigate('passport')" class="px-6 py-3.5 rounded-xl bg-navy-800 hover:bg-navy-700 text-white font-semibold text-sm sm:text-base border border-slate-700 flex items-center gap-2 transition">
+                    <i data-lucide="qr-code" class="w-5 h-5 text-emerald-400"></i>
+                    Inspect Skill Passport
+                  </button>
+                </div>
+                <div class="pt-4 grid grid-cols-3 gap-4 border-t border-slate-800 text-xs sm:text-sm">
+                  <div>
+                    <p class="font-bold text-white text-lg">0 Paper Barriers</p>
+                    <p class="text-slate-400">No diplomas required to assess</p>
+                  </div>
+                  <div>
+                    <p class="font-bold text-emerald-400 text-lg">3-Tier Trust</p>
+                    <p class="text-slate-400">Self, AI-Assessed &amp; Human-Verified</p>
+                  </div>
+                  <div>
+                    <p class="font-bold text-white text-lg">QR + PDF</p>
+                    <p class="text-slate-400">Consent-controlled employer proof</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="lg:col-span-5">
+                <div class="bg-navy-800/90 border border-slate-700 rounded-2xl p-6 shadow-2xl space-y-4">
+                  <div class="flex items-center justify-between border-b border-slate-700 pb-3">
+                    <div>
+                      <span class="text-[11px] uppercase tracking-wider text-emerald-400 font-bold">Interactive Role Sandbox</span>
+                      <h2 class="text-lg font-bold text-white">Explore All 3 Ecosystem Roles</h2>
+                    </div>
+                    <i data-lucide="layers" class="w-6 h-6 text-emerald-400"></i>
+                  </div>
+                  <p class="text-xs text-slate-300">
+                    Test the end-to-end credentialing workflow immediately using pre-configured profiles or register a new account.
+                  </p>
+
+                  <div class="space-y-3">
+                    <button onclick="switchDemoRole('applicant')" class="w-full text-left p-4 rounded-xl bg-navy-900 hover:bg-slate-900 border border-slate-700 hover:border-emerald-500 transition flex items-center justify-between group">
+                      <div>
+                        <div class="flex items-center gap-2">
+                          <span class="font-bold text-white group-hover:text-emerald-400">1. Applicant / Skill Owner</span>
+                          <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300">Abdikani Mohamed Abdille</span>
+                        </div>
+                        <p class="text-xs text-slate-400 mt-1">Take practical assessments, submit code, run AI rubric evaluation, and export PDF Passport.</p>
+                      </div>
+                      <i data-lucide="arrow-right" class="w-5 h-5 text-slate-400 group-hover:text-emerald-400 shrink-0"></i>
+                    </button>
+
+                    <button onclick="switchDemoRole('assessor')" class="w-full text-left p-4 rounded-xl bg-navy-900 hover:bg-slate-900 border border-slate-700 hover:border-amber-400 transition flex items-center justify-between group">
+                      <div>
+                        <div class="flex items-center gap-2">
+                          <span class="font-bold text-white group-hover:text-amber-300">2. Assessor / Human Verifier</span>
+                          <span class="text-[10px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-300">Dr. S. Ochieng</span>
+                        </div>
+                        <p class="text-xs text-slate-400 mt-1">Inspect submitted source code, review AI rubric scores, and issue Human-Verified sign-off.</p>
+                      </div>
+                      <i data-lucide="arrow-right" class="w-5 h-5 text-slate-400 group-hover:text-amber-300 shrink-0"></i>
+                    </button>
+
+                    <button onclick="switchDemoRole('employer')" class="w-full text-left p-4 rounded-xl bg-navy-900 hover:bg-slate-900 border border-slate-700 hover:border-sky-400 transition flex items-center justify-between group">
+                      <div>
+                        <div class="flex items-center gap-2">
+                          <span class="font-bold text-white group-hover:text-sky-300">3. Employer / Hiring Partner</span>
+                          <span class="text-[10px] px-2 py-0.5 rounded bg-sky-500/20 text-sky-300">Savannah Cloud</span>
+                        </div>
+                        <p class="text-xs text-slate-400 mt-1">Search verified talent, inspect practical code evidence, and publish inclusive roles.</p>
+                      </div>
+                      <i data-lucide="arrow-right" class="w-5 h-5 text-slate-400 group-hover:text-sky-300 shrink-0"></i>
+                    </button>
+                  </div>
+
+                  <div class="pt-2 flex items-center justify-between text-xs text-slate-400">
+                    <span>Want to create your own account?</span>
+                    <button onclick="navigate('register')" class="text-emerald-400 hover:underline font-semibold">Register New User →</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div class="text-center max-w-3xl mx-auto mb-12">
+            <span class="text-xs font-bold uppercase tracking-wider text-emerald-600">Trust &amp; Verification Integrity</span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-navy-900 mt-2">Clear Separation Between Claims, AI Evaluation &amp; Human Sign-Off</h2>
+            <p class="text-slate-600 text-sm sm:text-base mt-3">
+              AI Skill Passport never inflates AI scores into accredited diplomas. Every skill badge on a candidate's passport transparently displays its exact verification tier.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
+              <div class="mb-4">${getStatusBadge("Self-Reported")}</div>
+              <h3 class="text-lg font-bold text-navy-900 mb-2">Tier 1: Self-Reported Skills</h3>
+              <p class="text-sm text-slate-600 leading-relaxed">
+                Skills declared by the applicant from our 9-category catalogue or custom proposals, paired with work context—even when formal certificates were lost or unavailable.
+              </p>
+            </div>
+            <div class="bg-white rounded-2xl p-6 border border-indigo-200 shadow-sm">
+              <div class="mb-4">${getStatusBadge("AI-Assessed")}</div>
+              <h3 class="text-lg font-bold text-navy-900 mb-2">Tier 2: AI-Assessed Evidence</h3>
+              <p class="text-sm text-slate-600 leading-relaxed">
+                Practical code and project explanations evaluated against a transparent weighted rubric. Provides actionable feedback without claiming human accreditation.
+              </p>
+            </div>
+            <div class="bg-white rounded-2xl p-6 border border-emerald-300 shadow-sm ring-1 ring-emerald-500/20">
+              <div class="mb-4">${getStatusBadge("Human-Verified")}</div>
+              <h3 class="text-lg font-bold text-navy-900 mb-2">Tier 3: Human-Verified Credential</h3>
+              <p class="text-sm text-slate-600 leading-relaxed">
+                Independent domain assessors inspect live URLs, source code, and evidence artifacts, recording signed verification decisions in an immutable audit trail.
+              </p>
+            </div>
+          </div>
+        </section>
+      `;
+    }
+
+    // 2. ABOUT AND MISSION
+    function renderAboutView() {
+      return `
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10">
+          <div class="bg-navy-900 text-white rounded-2xl p-8 sm:p-10 shadow-lg">
+            <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-bold">Core Philosophy &amp; SDG Alignment</span>
+            <h1 class="text-2xl sm:text-4xl font-extrabold mt-4">"People should be evaluated by what they can do, not by the papers they possess."</h1>
+            <p class="text-slate-300 mt-4 text-sm sm:text-base leading-relaxed">
+              Displaced individuals, refugees, and self-taught builders often hold strong real-world digital, technical, and creative skills without formal certificates or transcripts. AI Skill Passport bridges this gap through structured practical assessments, rubric-based AI evaluation, human verification, and consent-controlled digital skill passports.
+            </p>
+            <p class="text-emerald-300 font-semibold text-sm mt-4">Your Skills Matter. Your Future Matters.</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+              <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">SDG 4</div>
+              <h2 class="text-xl font-bold text-navy-900">Quality Education &amp; Lifelong Learning</h2>
+              <p class="text-sm text-slate-600 leading-relaxed">
+                Supports practical learning pathways, structured rubric feedback, and open learning resources without requiring formal academic paper credentials.
+              </p>
+            </div>
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+              <div class="w-10 h-10 rounded-xl bg-navy-900 text-emerald-400 flex items-center justify-center font-bold">SDG 8</div>
+              <h2 class="text-xl font-bold text-navy-900">Decent Work &amp; Economic Growth</h2>
+              <p class="text-sm text-slate-600 leading-relaxed">
+                Helps employers discover capable candidates via verified source code, live work evidence, and transparent skill passports.
+              </p>
+            </div>
+          </div>
+
+          <div class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+            <h2 class="text-xl font-bold text-navy-900">Verification &amp; Privacy Safeguards</h2>
+            <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-slate-700">
+              <li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5"></i><span>Zero penalty when formal academic certificates are unavailable.</span></li>
+              <li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5"></i><span>AI scores never automatically become Human-Verified status.</span></li>
+              <li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5"></i><span>Static inspection never falsely claims unexecuted browser testing.</span></li>
+              <li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5"></i><span>Applicant privacy controls govern public passport &amp; contact access.</span></li>
+            </ul>
+          </div>
+        </div>
+      `;
+    }
+
+    // 3 & 4. REGISTRATION & LOGIN
+    function renderAuthView(mode = "login") {
+      const isReg = mode === "register";
+      return `
+        <div class="max-w-lg mx-auto px-4 py-12">
+          <div class="bg-white rounded-2xl border border-slate-200 shadow-lg overflow-hidden">
+            <div class="bg-navy-900 px-6 py-6 text-white">
+              <h1 class="text-2xl font-extrabold">${isReg ? "Create Your AI Skill Passport" : "Sign In to AI Skill Passport"}</h1>
+              <p class="text-xs text-slate-300 mt-1">
+                ${isReg ? "No academic certificates required to register and prove your skills." : "Access your Applicant, Assessor, or Employer workspace."}
+              </p>
+            </div>
+
+            <form onsubmit="handleAuthSubmit(event, '${mode}')" class="p-6 space-y-4">
+              ${isReg ? `
+                <div>
+                  <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Full Name *</label>
+                  <input type="text" id="auth-name" required placeholder="e.g., Abdikani Mohamed Abdille" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-emerald-500 outline-none" />
+                </div>
+                <div>
+                  <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Select Platform Role *</label>
+                  <select id="auth-role" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm bg-white focus:ring-2 focus:ring-emerald-500 outline-none">
+                    <option value="applicant">Applicant / Skill Owner (Demonstrate &amp; verify skills)</option>
+                    <option value="assessor">Assessor / Verifier (Evaluate evidence &amp; verify skills)</option>
+                    <option value="employer">Employer / Hiring Partner (Discover verified talent)</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Location (City, Country)</label>
+                  <input type="text" id="auth-location" placeholder="e.g., Nairobi, Kenya" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-emerald-500 outline-none" />
+                </div>
+                <div>
+                  <label class="block text-xs font-bold uppercase text-slate-700 mb-1">GitHub URL (Optional)</label>
+                  <input type="url" id="auth-github" placeholder="https://github.com/abdikanicontacts-eng" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-emerald-500 outline-none" />
+                </div>
+              ` : `
+                <div>
+                  <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Select Account or Enter Email</label>
+                  <select id="login-preset" onchange="document.getElementById('auth-email').value = this.value" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm bg-slate-50 mb-2">
+                    <option value="abdikanicontacts@gmail.com">Applicant — Abdikani Mohamed Abdille (abdikanicontacts@gmail.com)</option>
+                    <option value="s.ochieng@verifier-demo.org">Assessor — Dr. Samuel Ochieng (s.ochieng@verifier-demo.org)</option>
+                    <option value="talent@savannahcloud-demo.io">Employer — Grace Mwangi (talent@savannahcloud-demo.io)</option>
+                  </select>
+                </div>
+              `}
+
+              <div>
+                <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Email Address *</label>
+                <input type="email" id="auth-email" required value="${isReg ? "" : "abdikanicontacts@gmail.com"}" placeholder="abdikanicontacts@gmail.com" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-emerald-500 outline-none" />
+              </div>
+
+              ${isReg ? `
+                <label class="flex items-start gap-2.5 p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-950 cursor-pointer">
+                  <input type="checkbox" id="auth-no-certs" checked class="mt-0.5 rounded text-emerald-600 focus:ring-emerald-500" />
+                  <span><strong>Formal certificates unavailable / inaccessible:</strong> Check this if academic certificates are unavailable or not required. You will never be penalized for lacking paper certificates.</span>
+                </label>
+              ` : ""}
+
+              <button type="submit" class="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-md transition">
+                ${isReg ? "Create Account &amp; Generate Skill Passport ID" : "Continue to Workspace"}
+              </button>
+
+              <div class="text-center text-xs text-slate-600 pt-2">
+                ${isReg
+                  ? `Already have an account? <button type="button" onclick="navigate('login')" class="text-emerald-600 font-bold hover:underline">Log in here</button>`
+                  : `New to AI Skill Passport? <button type="button" onclick="navigate('register')" class="text-emerald-600 font-bold hover:underline">Create an account</button>`
+                }
+              </div>
+            </form>
+          </div>
+        </div>
+      `;
+    }
+
+    window.handleAuthSubmit = function(e, mode) {
+      e.preventDefault();
+      const email = document.getElementById("auth-email").value.trim();
+      if (!email) return showToast("Please enter a valid email address.", "error");
+
+      if (mode === "login") {
+        const existing = state.users.find(u => u.email.toLowerCase() === email.toLowerCase());
+        if (existing) {
+          state.currentUserUid = existing.uid;
+          saveState();
+          showToast(`Welcome back, ${existing.name}!`, "success");
+          if (existing.role === "applicant") navigate("applicant-dashboard");
+          else if (existing.role === "assessor") navigate("assessor-dashboard");
+          else navigate("employer-dashboard");
+        } else {
+          showToast("Account not found. Please register or select an existing account.", "error");
+        }
+      } else {
+        const name = document.getElementById("auth-name").value.trim();
+        const role = document.getElementById("auth-role").value;
+        const location = document.getElementById("auth-location").value.trim() || "Nairobi, Kenya";
+        const githubUrl = document.getElementById("auth-github")?.value.trim() || "https://github.com/abdikanicontacts-eng";
+        const noCerts = document.getElementById("auth-no-certs")?.checked ?? true;
+
+        if (!name) return showToast("Please enter your full name.", "error");
+
+        const uid = "user-" + Date.now();
+        const newUser = { uid, name, email, role, isDemo: false };
+        state.users.push(newUser);
+        state.currentUserUid = uid;
+
+        if (role === "applicant") {
+          const passportId = "ASP-2026-" + Math.floor(1000 + Math.random() * 9000);
+          const initials = name.split(/\s+/).slice(0, 2).map(n => n[0]?.toUpperCase() || "").join("") || "AM";
+          state.applicantProfiles[uid] = {
+            uid,
+            passportId,
+            name,
+            email,
+            initials,
+            headline: "Practical Skills Candidate",
+            location,
+            bio: "Demonstrating practical professional capabilities through real-world projects and verified evidence.",
+            certificatesUnavailable: noCerts,
+            certificatesNote: noCerts ? "Formal academic certificates marked unavailable/inaccessible; evaluated on practical evidence." : "Formal educational notes provided alongside practical work.",
+            selectedSkills: [
+              { skillId: "sk-1", name: "Responsive Web Development (HTML/CSS)", category: "Web Development", status: "Self-Reported", level: "Candidate", score: null }
+            ],
+            experience: [],
+            education: [],
+            portfolioLinks: { website: "", github: githubUrl, email },
+            privacy: { publicPassport: true, allowEmployerContact: true, showEvidenceLinks: true },
+            isDemo: false
+          };
+          state.selectedPassportId = passportId;
+          addAuditLog(name, "REGISTERED_APPLICANT", passportId, `Registered applicant (${email}) with zero certificate barrier.`);
+          saveState();
+          showToast(`Account created! Passport ID: ${passportId}`, "success");
+          navigate("applicant-dashboard");
+        } else if (role === "assessor") {
+          addAuditLog(name, "REGISTERED_ASSESSOR", uid, `Assessor account registered (${email}).`);
+          saveState();
+          showToast(`Assessor account created for ${name}.`, "success");
+          navigate("assessor-dashboard");
+        } else {
+          addAuditLog(name, "REGISTERED_EMPLOYER", uid, `Employer account registered (${email}).`);
+          saveState();
+          showToast(`Employer account created for ${name}.`, "success");
+          navigate("employer-dashboard");
+        }
+      }
+    };
+
+    // 5. APPLICANT DASHBOARD
+    function renderApplicantDashboardView() {
+      const profile = getActiveApplicantProfile();
+      const completion = calculateProfileCompletion(profile);
+      const mySubmissions = state.assessmentSubmissions.filter(s => s.applicantUid === profile.uid);
+      const latestSub = mySubmissions[0];
+
+      return `
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+          <div class="bg-navy-900 text-white rounded-2xl p-6 sm:p-8 flex flex-col lg:flex-row lg:items-center justify-between gap-6 shadow-md">
+            <div class="space-y-2">
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                  Passport ID: ${escapeHtml(profile.passportId)}
+                </span>
+                ${profile.certificatesUnavailable ? `<span class="px-2.5 py-0.5 rounded-full text-xs bg-slate-800 text-slate-300 border border-slate-700">No-Certificate Pathway Active (Zero Penalty)</span>` : ""}
+              </div>
+              <h1 class="text-2xl sm:text-3xl font-extrabold">Welcome, ${escapeHtml(profile.name)}</h1>
+              <p class="text-sm text-slate-300">${escapeHtml(profile.headline)} • ${escapeHtml(profile.location)} • <span class="text-emerald-300">${escapeHtml(profile.email || "abdikanicontacts@gmail.com")}</span></p>
+              <p class="text-xs text-slate-400">GitHub: <a href="${escapeHtml(profile.portfolioLinks?.github || "https://github.com/abdikanicontacts-eng")}" target="_blank" rel="noopener" class="text-emerald-400 hover:underline">${escapeHtml(profile.portfolioLinks?.github || "https://github.com/abdikanicontacts-eng")}</a></p>
+            </div>
+            <div class="flex flex-wrap gap-3">
+              <button onclick="navigate('profile')" class="px-4 py-2.5 rounded-xl bg-navy-800 hover:bg-navy-700 border border-slate-700 text-xs sm:text-sm font-semibold flex items-center gap-2">
+                <i data-lucide="user-cog" class="w-4 h-4 text-emerald-400"></i>
+                Edit Profile
+              </button>
+              <button onclick="navigate('assessment-workspace')" class="px-4 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-navy-900 text-xs sm:text-sm font-bold flex items-center gap-2 shadow">
+                <i data-lucide="code" class="w-4 h-4"></i>
+                Open Assessment Workspace
+              </button>
+              <button onclick="navigate('passport', '${profile.passportId}')" class="px-4 py-2.5 rounded-xl bg-white hover:bg-slate-100 text-navy-900 text-xs sm:text-sm font-bold flex items-center gap-2">
+                <i data-lucide="qr-code" class="w-4 h-4 text-emerald-600"></i>
+                View Skill Passport
+              </button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+              <div class="flex items-center justify-between text-xs font-semibold text-slate-500 mb-2">
+                <span>PROFILE COMPLETION</span>
+                <i data-lucide="user-check" class="w-4 h-4 text-emerald-600"></i>
+              </div>
+              <div class="text-2xl font-extrabold text-navy-900">${completion}%</div>
+              <div class="w-full bg-slate-100 h-2 rounded-full mt-2 overflow-hidden">
+                <div class="bg-emerald-500 h-full rounded-full" style="width: ${completion}%"></div>
+              </div>
+            </div>
+
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+              <div class="flex items-center justify-between text-xs font-semibold text-slate-500 mb-2">
+                <span>SELECTED SKILLS</span>
+                <i data-lucide="sparkles" class="w-4 h-4 text-emerald-600"></i>
+              </div>
+              <div class="text-2xl font-extrabold text-navy-900">${profile.selectedSkills.length}</div>
+              <p class="text-xs text-slate-500 mt-1">Across ${new Set(profile.selectedSkills.map(s => s.category)).size} categories</p>
+            </div>
+
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+              <div class="flex items-center justify-between text-xs font-semibold text-slate-500 mb-2">
+                <span>PRACTICAL SUBMISSIONS</span>
+                <i data-lucide="folder-check" class="w-4 h-4 text-indigo-600"></i>
+              </div>
+              <div class="text-2xl font-extrabold text-navy-900">${mySubmissions.length}</div>
+              <p class="text-xs text-slate-500 mt-1">${latestSub ? `Latest: ${latestSub.status}` : "Ready to start"}</p>
+            </div>
+
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+              <div class="flex items-center justify-between text-xs font-semibold text-slate-500 mb-2">
+                <span>LATEST RUBRIC SCORE</span>
+                <i data-lucide="award" class="w-4 h-4 text-emerald-600"></i>
+              </div>
+              <div class="text-2xl font-extrabold text-emerald-600">${latestSub?.aiResult ? `${latestSub.aiResult.overallScore}/100` : "—"}</div>
+              <p class="text-xs text-slate-500 mt-1">${latestSub?.humanVerification?.decision === "Human-Verified" ? "Human-Verified" : "AI-Assessed (Pending Human Sign-off)"}</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2 space-y-6">
+              <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
+                <div class="flex items-center justify-between mb-4">
+                  <div>
+                    <h2 class="text-lg font-bold text-navy-900">My Skills &amp; Verification Status</h2>
+                    <p class="text-xs text-slate-500">Distinguishes Self-Reported, AI-Assessed, and Human-Verified skills.</p>
+                  </div>
+                  <button onclick="navigate('skills')" class="text-xs font-bold text-emerald-600 hover:underline">+ Add Skills</button>
+                </div>
+                <div class="divide-y divide-slate-100">
+                  ${profile.selectedSkills.map(skill => `
+                    <div class="py-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                      <div>
+                        <div class="font-semibold text-sm text-navy-900">${escapeHtml(skill.name)}</div>
+                        <div class="text-xs text-slate-500">${escapeHtml(skill.category)} • Level: ${escapeHtml(skill.level || "Candidate")} ${skill.score ? `• Score: ${skill.score}/100` : ""}</div>
+                      </div>
+                      <div class="flex items-center gap-2">
+                        ${getStatusBadge(skill.status)}
+                        ${skill.category === "Web Development" ? `
+                          <button onclick="navigate('assessment-workspace')" class="px-3 py-1 rounded-lg bg-slate-100 hover:bg-emerald-50 text-xs font-semibold text-navy-900 border border-slate-200">
+                            Assess / Update
+                          </button>
+                        ` : ""}
+                      </div>
+                    </div>
+                  `).join("")}
+                </div>
+              </div>
+
+              <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
+                <div class="flex items-center justify-between mb-4">
+                  <div>
+                    <h2 class="text-lg font-bold text-navy-900">Practical Assessment &amp; Evidence Tracker</h2>
+                    <p class="text-xs text-slate-500">Track submissions from AI rubric scoring to human verification.</p>
+                  </div>
+                  <button onclick="navigate('evidence-submit')" class="px-3 py-1.5 rounded-lg bg-navy-900 text-white text-xs font-semibold hover:bg-navy-800">
+                    + Submit Evidence
+                  </button>
+                </div>
+                ${mySubmissions.length === 0 ? `
+                  <div class="text-center py-8 bg-slate-50 rounded-xl border border-dashed border-slate-300">
+                    <p class="text-sm font-semibold text-slate-700">No practical assessments submitted yet.</p>
+                    <p class="text-xs text-slate-500 mt-1 mb-4">Start "Build a Responsive Personal Portfolio Website" to generate evidence and rubric scores.</p>
+                    <button onclick="navigate('assessment-workspace')" class="px-4 py-2 rounded-lg bg-emerald-600 text-white text-xs font-bold">Start Practical Assessment</button>
+                  </div>
+                ` : mySubmissions.map(sub => `
+                  <div class="p-4 rounded-xl border border-slate-200 bg-slate-50/70 space-y-3 mb-3">
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                      <div>
+                        <h3 class="font-bold text-sm text-navy-900">${escapeHtml(sub.assessmentTitle)}</h3>
+                        <p class="text-xs text-slate-500">Submitted: ${new Date(sub.submittedAt).toLocaleDateString()} • GitHub: ${escapeHtml(sub.evidence.repoUrl || "https://github.com/abdikanicontacts-eng")}</p>
+                      </div>
+                      ${getStatusBadge(sub.status)}
+                    </div>
+                    ${sub.humanVerification ? `
+                      <div class="p-3 rounded-lg bg-emerald-50 border border-emerald-200 text-xs text-emerald-900">
+                        <strong>Human Assessor Note (${escapeHtml(sub.humanVerification.assessorName)}):</strong> ${escapeHtml(sub.humanVerification.comments)}
+                      </div>
+                    ` : ""}
+                    <div class="flex flex-wrap gap-2 pt-1">
+                      <button onclick="navigate('assessment-results', '${sub.id}')" class="px-3 py-1.5 rounded-lg bg-white border border-slate-300 hover:border-emerald-500 text-xs font-semibold text-navy-900">
+                        View Rubric &amp; Feedback
+                      </button>
+                      <button onclick="navigate('passport', '${profile.passportId}')" class="px-3 py-1.5 rounded-lg bg-emerald-600 text-white text-xs font-semibold hover:bg-emerald-700">
+                        Open Digital Passport
+                      </button>
+                    </div>
+                  </div>
+                `).join("")}
+              </div>
+            </div>
+
+            <div class="space-y-6">
+              <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-4">
+                <div class="flex items-center gap-2">
+                  <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center">
+                    <i data-lucide="compass" class="w-4 h-4"></i>
+                  </div>
+                  <div>
+                    <h2 class="text-base font-bold text-navy-900">Career &amp; Skill Growth</h2>
+                    <p class="text-[11px] text-slate-500">Recommendations &amp; pathways</p>
+                  </div>
+                </div>
+
+                <div class="space-y-3 text-xs">
+                  <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+                    <span class="font-bold text-indigo-700 uppercase text-[10px]">Skill Improvement Focus</span>
+                    <p class="font-semibold text-navy-900 mt-0.5">Keyboard Skip Links &amp; Accessibility Audits</p>
+                    <p class="text-slate-600 mt-1">Adding skip links and detailed visual evidence strengthens accessibility scoring.</p>
+                  </div>
+
+                  <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+                    <span class="font-bold text-emerald-700 uppercase text-[10px]">Free Learning Resource</span>
+                    <p class="font-semibold text-navy-900 mt-0.5">MDN Responsive Design &amp; W3C Accessibility</p>
+                    <a href="https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Responsive_Design" target="_blank" rel="noopener" class="text-emerald-600 font-semibold hover:underline inline-block mt-1">Open Free Guide ↗</a>
+                  </div>
+
+                  <div class="p-3 rounded-xl bg-emerald-50/70 border border-emerald-200">
+                    <span class="font-bold text-emerald-800 uppercase text-[10px]">Entry-Level &amp; Fellowship</span>
+                    <p class="font-semibold text-navy-900 mt-0.5">Digital Inclusion &amp; Web Accessibility Fellowship</p>
+                    <p class="text-slate-600 mt-0.5">$400/mo stipend • No paper certificates required.</p>
+                    <button onclick="navigate('opportunities')" class="mt-2 text-emerald-700 font-bold hover:underline">Browse Opportunities →</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // 6. APPLICANT PROFILE
+    function renderApplicantProfileView() {
+      const profile = getActiveApplicantProfile();
+      return `
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+            <div class="bg-navy-900 px-6 py-5 text-white flex items-center justify-between">
+              <div>
+                <h1 class="text-xl font-bold">Applicant Profile &amp; Credential Context</h1>
+                <p class="text-xs text-slate-300">Passport ID: ${escapeHtml(profile.passportId)} • Formal certificates are never required.</p>
+              </div>
+              <button onclick="navigate('applicant-dashboard')" class="text-xs text-slate-300 hover:text-white">← Back to Dashboard</button>
+            </div>
+
+            <form onsubmit="saveApplicantProfile(event)" class="p-6 space-y-6">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Full Name *</label>
+                  <input type="text" id="prof-name" required value="${escapeHtml(profile.name)}" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm" />
+                </div>
+                <div>
+                  <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Location *</label>
+                  <input type="text" id="prof-location" required value="${escapeHtml(profile.location)}" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm" />
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Email / Gmail *</label>
+                  <input type="email" id="prof-email" required value="${escapeHtml(profile.email || "abdikanicontacts@gmail.com")}" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm" />
+                </div>
+                <div>
+                  <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Professional Headline *</label>
+                  <input type="text" id="prof-headline" required value="${escapeHtml(profile.headline)}" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm" />
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Biography &amp; Practical Background *</label>
+                <textarea id="prof-bio" rows="3" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm">${escapeHtml(profile.bio)}</textarea>
+              </div>
+
+              <div class="p-4 rounded-xl bg-amber-50/70 border border-amber-200 space-y-2">
+                <label class="flex items-center gap-2.5 text-sm font-bold text-navy-900 cursor-pointer">
+                  <input type="checkbox" id="prof-nocerts" ${profile.certificatesUnavailable ? "checked" : ""} class="rounded text-emerald-600" />
+                  <span>Formal academic certificates are unavailable, lost, inaccessible, or not required</span>
+                </label>
+                <input type="text" id="prof-nocerts-note" value="${escapeHtml(profile.certificatesNote || "")}" placeholder="Optional context regarding formal certificates" class="w-full px-3 py-2 rounded-lg border border-amber-300 bg-white text-xs" />
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Portfolio / Website URL</label>
+                  <input type="url" id="prof-web" value="${escapeHtml(profile.portfolioLinks?.website || "")}" placeholder="https://abdikanicontacts-eng.github.io" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-xs" />
+                </div>
+                <div>
+                  <label class="block text-xs font-bold uppercase text-slate-700 mb-1">GitHub Profile URL</label>
+                  <input type="url" id="prof-github" value="${escapeHtml(profile.portfolioLinks?.github || "https://github.com/abdikanicontacts-eng")}" placeholder="https://github.com/abdikanicontacts-eng" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-xs" />
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Work / Practical Experience</label>
+                  <input type="text" id="prof-exp" value="${escapeHtml(profile.experience?.[0] ? `${profile.experience[0].role} at ${profile.experience[0].org} (${profile.experience[0].period})` : "")}" placeholder="e.g., Freelance Web & UI Builder at Community Enterprise Hub" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs" />
+                </div>
+                <div>
+                  <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Training / Program Notes</label>
+                  <input type="text" id="prof-edu" value="${escapeHtml(profile.education?.[0] ? `${profile.education[0].program} — ${profile.education[0].institution}` : "")}" placeholder="e.g., Power Learn Project Africa — Software Development Track" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs" />
+                </div>
+              </div>
+
+              <div class="flex justify-end gap-3 pt-4 border-t border-slate-200">
+                <button type="button" onclick="navigate('applicant-dashboard')" class="px-4 py-2.5 rounded-xl border border-slate-300 text-xs font-semibold text-slate-700">Cancel</button>
+                <button type="submit" class="px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shadow">Save Profile Changes</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      `;
+    }
+
+    window.saveApplicantProfile = function(e) {
+      e.preventDefault();
+      const profile = getActiveApplicantProfile();
+      profile.name = document.getElementById("prof-name").value.trim();
+      profile.location = document.getElementById("prof-location").value.trim();
+      profile.email = document.getElementById("prof-email").value.trim();
+      profile.headline = document.getElementById("prof-headline").value.trim();
+      profile.bio = document.getElementById("prof-bio").value.trim();
+      profile.initials = profile.name.split(/\s+/).slice(0, 2).map(n => n[0]?.toUpperCase() || "").join("") || "AM";
+      profile.certificatesUnavailable = document.getElementById("prof-nocerts").checked;
+      profile.certificatesNote = document.getElementById("prof-nocerts-note").value.trim();
+      profile.portfolioLinks = {
+        website: document.getElementById("prof-web").value.trim(),
+        github: document.getElementById("prof-github").value.trim() || "https://github.com/abdikanicontacts-eng",
+        email: profile.email
+      };
+
+      const expVal = document.getElementById("prof-exp").value.trim();
+      if (expVal) {
+        profile.experience = [{ role: expVal, org: "Practical Experience", period: "Active", details: expVal }];
+      }
+      const eduVal = document.getElementById("prof-edu").value.trim();
+      if (eduVal) {
+        profile.education = [{ program: eduVal, institution: "Practical Track", year: "2025–2026", status: "Active" }];
+      }
+
+      const currentUser = getCurrentUser();
+      if (currentUser && currentUser.uid === profile.uid) {
+        currentUser.name = profile.name;
+        currentUser.email = profile.email;
+      }
+
+      addAuditLog(profile.name, "UPDATED_PROFILE", profile.passportId, "Updated applicant profile and contact details.");
+      saveState();
+      showToast("Applicant profile saved.", "success");
+      navigate("applicant-dashboard");
+    };
+
+    // 7. SKILLS CATALOGUE
+    function renderSkillsCatalogueView() {
+      const profile = getActiveApplicantProfile();
+      const filteredSkills = state.skills.filter(s => {
+        const matchesCat = state.skillCategoryFilter === "All" || s.category === state.skillCategoryFilter;
+        const matchesQuery = !state.skillSearch ||
+          s.name.toLowerCase().includes(state.skillSearch.toLowerCase()) ||
+          s.category.toLowerCase().includes(state.skillSearch.toLowerCase());
+        return matchesCat && matchesQuery;
+      });
+
+      return `
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+          <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-wider text-emerald-600">Module 2 — Skills Discovery</span>
+              <h1 class="text-2xl sm:text-3xl font-extrabold text-navy-900 mt-1">Practical Skills Catalogue</h1>
+              <p class="text-sm text-slate-600 mt-1">Select skills to add to your Digital Skill Passport or launch a practical assessment.</p>
+            </div>
+            <button onclick="openProposeSkillModal()" class="px-4 py-2.5 rounded-xl bg-navy-900 hover:bg-navy-800 text-white text-xs font-bold flex items-center gap-2 self-start">
+              <i data-lucide="plus-circle" class="w-4 h-4 text-emerald-400"></i>
+              Propose Additional Skill
+            </button>
+          </div>
+
+          <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+            <div class="relative">
+              <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 top-3"></i>
+              <input
+                type="text"
+                value="${escapeHtml(state.skillSearch)}"
+                oninput="state.skillSearch = this.value; saveState(); renderApp();"
+                placeholder="Search skills across Web Development, Graphic Design, Data Analysis, Digital Marketing, Video Editing, Virtual Assistance, Translation, Programming, AI and Digital Skills..."
+                class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-emerald-500 outline-none"
+              />
+            </div>
+            <div class="flex flex-wrap gap-1.5">
+              ${["All", ...SKILL_CATEGORIES].map(cat => {
+                const active = state.skillCategoryFilter === cat;
+                return `<button onclick="state.skillCategoryFilter = '${cat}'; saveState(); renderApp();" class="px-3 py-1.5 rounded-lg text-xs font-semibold transition ${active ? "bg-emerald-600 text-white" : "bg-slate-100 text-slate-700 hover:bg-slate-200"}">
+                  ${cat}
+                </button>`;
+              }).join("")}
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            ${filteredSkills.length === 0 ? `
+              <div class="col-span-full bg-white p-10 rounded-2xl border border-slate-200 text-center text-sm text-slate-500">
+                No matching skills found. Try another keyword or propose a custom skill.
+              </div>
+            ` : filteredSkills.map(skill => {
+              const alreadyAdded = profile?.selectedSkills?.some(s => s.name === skill.name);
+              return `
+                <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm flex flex-col justify-between hover:border-emerald-400 transition">
+                  <div>
+                    <div class="flex items-center justify-between gap-2 mb-2">
+                      <span class="px-2.5 py-0.5 rounded-md text-[11px] font-bold bg-navy-900 text-emerald-400">${escapeHtml(skill.category)}</span>
+                      <span class="text-xs text-slate-500">${skill.learnersCount} learners</span>
+                    </div>
+                    <h3 class="font-bold text-base text-navy-900 mt-2">${escapeHtml(skill.name)}</h3>
+                    <p class="text-xs text-slate-500 mt-1">Level: ${escapeHtml(skill.level)}</p>
+                  </div>
+
+                  <div class="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between gap-2">
+                    <button onclick="toggleApplicantSkill('${skill.id}')" class="px-3 py-2 rounded-xl text-xs font-bold transition ${alreadyAdded ? "bg-emerald-50 text-emerald-700 border border-emerald-200" : "bg-slate-100 hover:bg-slate-200 text-navy-900"}">
+                      ${alreadyAdded ? "✓ Added to Passport" : "+ Add to My Skills"}
+                    </button>
+                    ${skill.hasPracticalAssessment ? `
+                      <button onclick="navigate('assessment-details')" class="px-3 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold">
+                        Take Assessment →
+                      </button>
+                    ` : `
+                      <button onclick="generateSkillChallengeModal('${escapeHtml(skill.name)}', '${escapeHtml(skill.category)}')" class="px-3 py-2 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold">
+                        Challenge Brief
+                      </button>
+                    `}
+                  </div>
+                </div>
+              `;
+            }).join("")}
+          </div>
+        </div>
+      `;
+    }
+
+    window.toggleApplicantSkill = function(skillId) {
+      const skill = state.skills.find(s => s.id === skillId);
+      const profile = getActiveApplicantProfile();
+      if (!skill || !profile) return;
+
+      const idx = profile.selectedSkills.findIndex(s => s.name === skill.name);
+      if (idx >= 0) {
+        profile.selectedSkills.splice(idx, 1);
+        showToast(`Removed "${skill.name}" from your profile.`, "info");
+      } else {
+        profile.selectedSkills.push({
+          skillId: skill.id,
+          name: skill.name,
+          category: skill.category,
+          status: "Self-Reported",
+          level: skill.level,
+          score: null
+        });
+        showToast(`Added "${skill.name}" as Self-Reported skill.`, "success");
+      }
+      saveState();
+      renderApp();
+    };
+
+    window.openProposeSkillModal = function() {
+      openModal(
+        "Propose a New Practical Skill",
+        `
+          <p class="text-xs text-slate-600">Add a new skill to the catalogue for yourself or other applicants.</p>
+          <div>
+            <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Skill Title *</label>
+            <input type="text" id="new-skill-name" placeholder="e.g., Technical Documentation & API Guides" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Category *</label>
+            <select id="new-skill-cat" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm bg-white">
+              ${SKILL_CATEGORIES.map(c => `<option value="${c}">${c}</option>`).join("")}
+            </select>
+          </div>
+        `,
+        `
+          <button onclick="closeModal()" class="px-4 py-2 rounded-xl border border-slate-300 text-xs font-semibold">Cancel</button>
+          <button onclick="submitNewSkillProposal()" class="px-4 py-2 rounded-xl bg-emerald-600 text-white text-xs font-bold">Add Skill</button>
+        `
+      );
+    };
+
+    window.submitNewSkillProposal = function() {
+      const name = document.getElementById("new-skill-name").value.trim();
+      const category = document.getElementById("new-skill-cat").value;
+      if (!name) return showToast("Please enter a skill title.", "error");
+
+      const newSkill = {
+        id: "sk-" + Date.now(),
+        name,
+        category,
+        level: "Practical",
+        hasPracticalAssessment: false,
+        learnersCount: 1
+      };
+      state.skills.unshift(newSkill);
+      addAuditLog(getCurrentUser()?.name || "Abdikani Mohamed Abdille", "PROPOSED_SKILL", name, `Added skill under ${category}.`);
+      saveState();
+      closeModal();
+      showToast(`"${name}" added to the Skills Catalogue.`, "success");
+      renderApp();
+    };
+
+    window.generateSkillChallengeModal = function(skillName, category) {
+      openModal(
+        `Practical Challenge Brief — ${skillName}`,
+        `
+          <div class="p-3 rounded-xl bg-indigo-50 border border-indigo-200 text-xs text-indigo-950">
+            <strong>Category:</strong> ${escapeHtml(category)} • <strong>Mode:</strong> Practical Evidence Challenge
+          </div>
+          <div class="space-y-2 text-xs text-slate-700 leading-relaxed">
+            <p><strong>Task:</strong> Build or document a real-world deliverable demonstrating <em>${escapeHtml(skillName)}</em>.</p>
+            <p><strong>Suggested Evidence:</strong></p>
+            <ul class="list-disc pl-5 space-y-1">
+              <li>Live link or repository link (e.g., https://github.com/abdikanicontacts-eng).</li>
+              <li>Screenshots or demonstration walkthrough.</li>
+              <li>Clear explanation of your approach, tools, and results.</li>
+            </ul>
+          </div>
+        `,
+        `
+          <button onclick="closeModal()" class="px-4 py-2 rounded-xl border border-slate-300 text-xs font-semibold">Close</button>
+          <button onclick="closeModal(); navigate('evidence-submit');" class="px-4 py-2 rounded-xl bg-emerald-600 text-white text-xs font-bold">Submit Evidence</button>
+        `
+      );
+    };
+
+    // 8. ASSESSMENT DETAILS
+    function renderAssessmentDetailsView() {
+      const asm = state.assessments[0];
+      return `
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+          <div class="bg-navy-900 text-white rounded-2xl p-6 sm:p-8 shadow-lg">
+            <div class="flex flex-wrap items-center gap-2 text-xs mb-3">
+              <span class="px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 font-bold">${escapeHtml(asm.category)}</span>
+              <span class="px-2.5 py-1 rounded-full bg-navy-800 text-slate-300 border border-slate-700">${escapeHtml(asm.difficulty)}</span>
+              <span class="px-2.5 py-1 rounded-full bg-navy-800 text-slate-300 border border-slate-700">Est. ${escapeHtml(asm.estimatedTime)}</span>
+            </div>
+            <h1 class="text-2xl sm:text-3xl font-extrabold">${escapeHtml(asm.title)}</h1>
+            <p class="text-slate-300 text-sm mt-3 leading-relaxed">${escapeHtml(asm.instructions)}</p>
+            <div class="mt-6 flex flex-wrap gap-3">
+              <button onclick="navigate('assessment-workspace')" class="px-5 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-navy-900 font-bold text-sm flex items-center gap-2 shadow">
+                <i data-lucide="terminal" class="w-4 h-4"></i>
+                Launch Practical Workspace
+              </button>
+              <button onclick="navigate('evidence-submit')" class="px-5 py-3 rounded-xl bg-navy-800 hover:bg-navy-700 text-white font-semibold text-sm border border-slate-700">
+                Submit Project Evidence
+              </button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+              <h2 class="text-lg font-bold text-navy-900">Skills Evaluated</h2>
+              <ul class="space-y-2 text-sm text-slate-700">
+                ${asm.skillsAssessed.map(s => `<li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-emerald-600 shrink-0"></i><span>${escapeHtml(s)}</span></li>`).join("")}
+              </ul>
+            </div>
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+              <h2 class="text-lg font-bold text-navy-900">Practical Project Requirements</h2>
+              <ul class="space-y-2 text-sm text-slate-700">
+                ${asm.requirements.map((r, i) => `<li class="flex items-start gap-2"><span class="font-bold text-emerald-600">${i + 1}.</span><span>${escapeHtml(r)}</span></li>`).join("")}
+              </ul>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+            <div class="px-6 py-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+              <div>
+                <h2 class="text-lg font-bold text-navy-900">Transparent 100% Assessment Scoring Rubric</h2>
+                <p class="text-xs text-slate-500">Applied across AI rubric scoring and human assessor review.</p>
+              </div>
+              <span class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-extrabold">Total: 100%</span>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left border-collapse text-sm">
+                <thead>
+                  <tr class="bg-slate-100/70 text-slate-600 text-xs uppercase">
+                    <th class="py-3 px-6">Assessment Criterion</th>
+                    <th class="py-3 px-4">Weight</th>
+                    <th class="py-3 px-6">Evaluation Standard</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                  ${asm.rubric.map(r => `
+                    <tr>
+                      <td class="py-3.5 px-6 font-bold text-navy-900">${escapeHtml(r.name)}</td>
+                      <td class="py-3.5 px-4 font-mono font-bold text-emerald-600">${r.weight}%</td>
+                      <td class="py-3.5 px-6 text-slate-600 text-xs sm:text-sm">${escapeHtml(r.description)}</td>
+                    </tr>
+                  `).join("")}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // 9. PRACTICAL ASSESSMENT WORKSPACE
+    function renderAssessmentWorkspaceView() {
+      const profile = getActiveApplicantProfile();
+      const existingSub = state.assessmentSubmissions.find(s => s.applicantUid === profile.uid) || state.assessmentSubmissions[0];
+      const initialCode = existingSub?.evidence?.sourceCode || SAMPLE_PORTFOLIO_CODE;
+
+      return `
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+          <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 bg-navy-900 text-white p-5 rounded-2xl">
+            <div>
+              <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-400">Module 3 — Practical Assessment Workspace</span>
+              <h1 class="text-xl sm:text-2xl font-extrabold">Build a Responsive Personal Portfolio Website</h1>
+              <p class="text-xs text-slate-300 mt-0.5">Edit HTML/CSS, inspect desktop vs. 375px mobile preview, and run rubric assessment.</p>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <button onclick="navigate('assessment-details')" class="px-3.5 py-2 rounded-xl bg-navy-800 hover:bg-navy-700 border border-slate-700 text-xs font-semibold">
+                View Rubric
+              </button>
+              <button onclick="navigate('evidence-submit')" class="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-navy-900 text-xs font-bold">
+                Full Evidence Form →
+              </button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex flex-col">
+              <div class="px-4 py-3 bg-slate-900 text-slate-200 flex items-center justify-between text-xs">
+                <span class="font-mono font-semibold flex items-center gap-2">
+                  <i data-lucide="file-code" class="w-4 h-4 text-emerald-400"></i>
+                  portfolio.html (HTML5 + CSS)
+                </span>
+                <button onclick="updateWorkspacePreview()" class="px-3 py-1 rounded bg-emerald-600 hover:bg-emerald-500 text-white font-semibold">
+                  Refresh Preview
+                </button>
+              </div>
+              <textarea
+                id="workspace-code-editor"
+                oninput="updateWorkspacePreview()"
+                class="w-full h-[460px] p-4 font-mono text-xs bg-slate-950 text-emerald-300 focus:outline-none resize-none leading-relaxed"
+              >${escapeHtml(initialCode)}</textarea>
+            </div>
+
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex flex-col">
+              <div class="px-4 py-2.5 bg-slate-100 border-b border-slate-200 flex items-center justify-between text-xs">
+                <span class="font-bold text-navy-900">Live Responsive Viewport</span>
+                <div class="flex items-center gap-1.5">
+                  <button onclick="setPreviewViewport('desktop')" id="btn-vp-desktop" class="px-2.5 py-1 rounded-lg font-semibold ${state.activePreviewMode === 'desktop' ? 'bg-navy-900 text-white' : 'bg-white text-slate-700 border border-slate-300'}">
+                    Desktop (100%)
+                  </button>
+                  <button onclick="setPreviewViewport('mobile')" id="btn-vp-mobile" class="px-2.5 py-1 rounded-lg font-semibold ${state.activePreviewMode === 'mobile' ? 'bg-navy-900 text-white' : 'bg-white text-slate-700 border border-slate-300'}">
+                    Mobile (375px)
+                  </button>
+                </div>
+              </div>
+              <div class="flex-1 bg-slate-200/70 p-3 flex justify-center overflow-auto min-h-[460px]">
+                <iframe
+                  id="workspace-preview-frame"
+                  title="Responsive Portfolio Live Preview"
+                  sandbox="allow-scripts"
+                  class="bg-white shadow-md rounded-lg border border-slate-300 transition-all duration-300 h-[435px] ${state.activePreviewMode === 'mobile' ? 'w-[375px]' : 'w-full'}"
+                ></iframe>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-4">
+            <h2 class="text-base font-bold text-navy-900">Implementation Explanation &amp; Submission</h2>
+            <p class="text-xs text-slate-600">Explain your semantic HTML structure, responsive CSS layout strategy, and accessibility features (10% weight).</p>
+            <textarea id="workspace-explanation" rows="3" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm" placeholder="Describe your semantic HTML structure, responsive layout, and accessibility choices...">${escapeHtml(existingSub?.evidence?.explanation || "")}</textarea>
+            <div class="flex flex-wrap items-center justify-between gap-3">
+              <span class="text-xs text-slate-500">AI rubric evaluation marks status as <strong>AI-Assessed</strong>; human review is required for <strong>Human-Verified</strong>.</span>
+              <button onclick="submitFromWorkspace()" ${state.isLoadingAI ? "disabled" : ""} class="px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white font-bold text-sm flex items-center gap-2 shadow">
+                <i data-lucide="sparkles" class="w-4 h-4"></i>
+                ${state.isLoadingAI ? "Evaluating Rubric..." : "Submit & Run AI Rubric Assessment"}
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    window.updateWorkspacePreview = function() {
+      const editor = document.getElementById("workspace-code-editor");
+      const frame = document.getElementById("workspace-preview-frame");
+      if (editor && frame) {
+        frame.srcdoc = editor.value;
+      }
+    };
+
+    window.setPreviewViewport = function(mode) {
+      state.activePreviewMode = mode;
+      saveState();
+      const frame = document.getElementById("workspace-preview-frame");
+      const btnD = document.getElementById("btn-vp-desktop");
+      const btnM = document.getElementById("btn-vp-mobile");
+      if (frame) {
+        frame.className = `bg-white shadow-md rounded-lg border border-slate-300 transition-all duration-300 h-[435px] ${mode === "mobile" ? "w-[375px]" : "w-full"}`;
+      }
+      if (btnD && btnM) {
+        btnD.className = `px-2.5 py-1 rounded-lg font-semibold ${mode === "desktop" ? "bg-navy-900 text-white" : "bg-white text-slate-700 border border-slate-300"}`;
+        btnM.className = `px-2.5 py-1 rounded-lg font-semibold ${mode === "mobile" ? "bg-navy-900 text-white" : "bg-white text-slate-700 border border-slate-300"}`;
+      }
+    };
+
+    window.submitFromWorkspace = function() {
+      const code = document.getElementById("workspace-code-editor")?.value.trim();
+      const explanation = document.getElementById("workspace-explanation")?.value.trim();
+
+      if (!code || code.length < 40) {
+        return showToast("Please provide valid HTML/CSS code before submitting.", "error");
+      }
+      if (!explanation || explanation.length < 15) {
+        return showToast("Please provide a short explanation of your implementation.", "error");
+      }
+
+      const profile = getActiveApplicantProfile();
+      const subId = "sub-" + Date.now();
+      const newSub = {
+        id: subId,
+        applicantUid: profile.uid,
+        applicantName: profile.name,
+        passportId: profile.passportId,
+        assessmentId: "asm-web-portfolio",
+        assessmentTitle: "Build a Responsive Personal Portfolio Website",
+        skillName: "Responsive Web Development (HTML/CSS)",
+        status: "Submitted",
+        submittedAt: new Date().toISOString(),
+        evidence: {
+          category: "Source code",
+          liveUrl: profile.portfolioLinks?.website || "https://abdikanicontacts-eng.github.io",
+          repoUrl: profile.portfolioLinks?.github || "https://github.com/abdikanicontacts-eng",
+          sourceCode: code,
+          screenshots: [],
+          explanation,
+          demoVideoUrl: "",
+          workReference: profile.email || "abdikanicontacts@gmail.com"
+        },
+        aiResult: null,
+        humanVerification: null,
+        isDemo: false
+      };
+
+      state.assessmentSubmissions.unshift(newSub);
+      state.selectedSubmissionId = subId;
+      addAuditLog(profile.name, "SUBMITTED_ASSESSMENT", `${profile.passportId} (${subId})`, "Submitted practical assessment from workspace.");
+      saveState();
+      runAiAssessmentForSubmission(newSub);
+    };
+
+    // 10. EVIDENCE SUBMISSION
+    function renderEvidenceSubmissionView() {
+      const profile = getActiveApplicantProfile();
+      const categories = [
+        "Practical project evidence",
+        "Source code",
+        "Live demonstrations",
+        "Portfolio links",
+        "Work experience",
+        "References",
+        "Educational documents"
+      ];
+
+      return `
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+            <div class="bg-navy-900 px-6 py-5 text-white">
+              <span class="text-xs font-bold uppercase text-emerald-400">Module 4 — Evidence-Based Verification</span>
+              <h1 class="text-xl sm:text-2xl font-extrabold mt-1">Submit Practical Project Evidence</h1>
+              <p class="text-xs text-slate-300 mt-1">Submit live URL, GitHub URL, source code, screenshots, explanation, and optional demo video.</p>
+            </div>
+
+            <form onsubmit="handleFullEvidenceSubmit(event)" class="p-6 space-y-5">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Evidence Category *</label>
+                  <select id="ev-category" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm bg-white">
+                    ${categories.map(cat => `<option value="${cat}">${cat}${cat === "Educational documents" ? " (when available)" : ""}</option>`).join("")}
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Contact Email</label>
+                  <input type="email" id="ev-email" value="${escapeHtml(profile.email || "abdikanicontacts@gmail.com")}" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm" />
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Live Website URL</label>
+                  <input type="url" id="ev-live-url" placeholder="https://abdikanicontacts-eng.github.io" value="${escapeHtml(profile.portfolioLinks?.website || "")}" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm" />
+                </div>
+                <div>
+                  <label class="block text-xs font-bold uppercase text-slate-700 mb-1">GitHub Repository URL</label>
+                  <input type="url" id="ev-repo-url" placeholder="https://github.com/abdikanicontacts-eng" value="${escapeHtml(profile.portfolioLinks?.github || "https://github.com/abdikanicontacts-eng")}" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm" />
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold uppercase text-slate-700 mb-1">HTML / CSS Source Code *</label>
+                <textarea id="ev-source-code" rows="8" required class="w-full p-3.5 rounded-xl border border-slate-300 font-mono text-xs bg-slate-50">${escapeHtml(SAMPLE_PORTFOLIO_CODE)}</textarea>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Screenshots URL(s) (Comma-separated)</label>
+                  <input type="text" id="ev-screenshots" placeholder="https://.../desktop-view.png, https://.../mobile-view.png" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm" />
+                </div>
+                <div>
+                  <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Optional Demonstration Video URL</label>
+                  <input type="url" id="ev-video" placeholder="https://..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm" />
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Work Experience / Reference Notes (Optional)</label>
+                <input type="text" id="ev-reference" placeholder="e.g., Practical project built by Abdikani Mohamed Abdille (abdikanicontacts@gmail.com)" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm" />
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Short Explanation of Implementation *</label>
+                <textarea id="ev-explanation" rows="4" required placeholder="Explain your HTML structure, CSS styling, mobile and desktop responsiveness, and accessibility choices..."></textarea>
+              </div>
+
+              <div class="flex flex-wrap items-center justify-end gap-3 pt-4 border-t border-slate-200">
+                <button type="button" onclick="navigate('applicant-dashboard')" class="px-4 py-2.5 rounded-xl border border-slate-300 text-xs font-semibold">Cancel</button>
+                <button type="submit" ${state.isLoadingAI ? "disabled" : ""} class="px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow flex items-center gap-2">
+                  <i data-lucide="send" class="w-4 h-4"></i>
+                  ${state.isLoadingAI ? "Evaluating Submission..." : "Submit Evidence & Run AI Assessment"}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      `;
+    }
+
+    window.handleFullEvidenceSubmit = function(e) {
+      e.preventDefault();
+      const profile = getActiveApplicantProfile();
+      const category = document.getElementById("ev-category").value;
+      const contactEmail = document.getElementById("ev-email").value.trim() || profile.email || "abdikanicontacts@gmail.com";
+      const liveUrl = document.getElementById("ev-live-url").value.trim();
+      const repoUrl = document.getElementById("ev-repo-url").value.trim() || "https://github.com/abdikanicontacts-eng";
+      const sourceCode = document.getElementById("ev-source-code").value.trim();
+      const screenshotsRaw = document.getElementById("ev-screenshots").value.trim();
+      const demoVideoUrl = document.getElementById("ev-video").value.trim();
+      const workReference = document.getElementById("ev-reference").value.trim();
+      const explanation = document.getElementById("ev-explanation").value.trim();
+
+      if (!sourceCode || !explanation) {
+        return showToast("Source code and implementation explanation are required.", "error");
+      }
+
+      const subId = "sub-" + Date.now();
+      const newSub = {
+        id: subId,
+        applicantUid: profile.uid,
+        applicantName: profile.name,
+        passportId: profile.passportId,
+        assessmentId: "asm-web-portfolio",
+        assessmentTitle: "Build a Responsive Personal Portfolio Website",
+        skillName: "Responsive Web Development (HTML/CSS)",
+        status: "Submitted",
+        submittedAt: new Date().toISOString(),
+        evidence: {
+          category,
+          contactEmail,
+          liveUrl,
+          repoUrl,
+          sourceCode,
+          screenshots: screenshotsRaw ? screenshotsRaw.split(",").map(s => s.trim()).filter(Boolean) : [],
+          explanation,
+          demoVideoUrl,
+          workReference
+        },
+        aiResult: null,
+        humanVerification: null,
+        isDemo: false
+      };
+
+      state.assessmentSubmissions.unshift(newSub);
+      state.selectedSubmissionId = subId;
+      addAuditLog(profile.name, "EVIDENCE_SUBMITTED", `${profile.passportId} (${subId})`, `Submitted ${category} evidence bundle.`);
+      saveState();
+      runAiAssessmentForSubmission(newSub);
+    };
+
+    // 11. ASSESSMENT RESULTS
+    function renderAssessmentResultsView() {
+      const sub = state.assessmentSubmissions.find(s => s.id === state.selectedSubmissionId) || state.assessmentSubmissions[0];
+      if (!sub) {
+        return `<div class="max-w-3xl mx-auto p-12 text-center"><p>No assessment submission found.</p></div>`;
+      }
+      const ai = sub.aiResult;
+
+      return `
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+          <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <div class="flex flex-wrap items-center gap-2 mb-2">
+                ${getStatusBadge(sub.status)}
+                <span class="text-xs font-mono text-slate-500">ID: ${escapeHtml(sub.id)}</span>
+              </div>
+              <h1 class="text-xl sm:text-2xl font-extrabold text-navy-900">${escapeHtml(sub.assessmentTitle)}</h1>
+              <p class="text-xs text-slate-600 mt-1">Applicant: <strong>${escapeHtml(sub.applicantName)}</strong> (${escapeHtml(sub.passportId)})</p>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <button onclick="navigate('passport', '${sub.passportId}')" class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold">
+                View Digital Skills Passport →
+              </button>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-xl bg-indigo-50 border border-indigo-200 text-xs text-indigo-950 flex items-start gap-3">
+            <i data-lucide="info" class="w-5 h-5 text-indigo-600 shrink-0 mt-0.5"></i>
+            <div>
+              <strong>Verification Transparency Notice:</strong> ${escapeHtml(ai?.methodNote || "Evaluated against the 100% Web Development rubric.")}
+              AI scores never automatically become Human-Verified status.
+            </div>
+          </div>
+
+          ${ai ? `
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <div class="bg-navy-900 text-white rounded-2xl p-6 flex flex-col justify-between">
+                <div>
+                  <span class="text-xs uppercase font-bold tracking-wider text-emerald-400">Overall AI Rubric Score</span>
+                  <div class="text-5xl font-extrabold mt-3">${ai.overallScore}<span class="text-xl text-slate-400">/100</span></div>
+                  <p class="text-xs text-slate-300 mt-2">Evaluated: ${new Date(ai.evaluatedAt).toLocaleString()}</p>
+                </div>
+                <div class="mt-6 pt-4 border-t border-slate-800 space-y-2 text-xs">
+                  <div class="flex justify-between">
+                    <span class="text-slate-400">AI Status:</span>
+                    <span class="font-bold text-indigo-300">AI-Assessed</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-slate-400">Human Verification:</span>
+                    <span class="font-bold ${sub.humanVerification?.decision === 'Human-Verified' ? 'text-emerald-400' : 'text-amber-300'}">
+                      ${sub.humanVerification ? sub.humanVerification.decision : "Pending Assessor Review"}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="lg:col-span-2 bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4">
+                <h2 class="text-base font-bold text-navy-900">Criterion-by-Criterion Score &amp; Supporting Evidence</h2>
+                <div class="space-y-3">
+                  ${ai.criteriaScores.map(c => `
+                    <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+                      <div class="flex items-center justify-between text-sm font-bold text-navy-900">
+                        <span>${escapeHtml(c.name)} <span class="text-xs font-normal text-slate-500">(${c.weight}% weight)</span></span>
+                        <span class="font-mono text-emerald-700">${c.score} / ${c.max}</span>
+                      </div>
+                      <p class="text-xs text-slate-600 mt-1">${escapeHtml(c.evidence)}</p>
+                    </div>
+                  `).join("")}
+                </div>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+                <h3 class="font-bold text-sm text-emerald-700 mb-3 flex items-center gap-1.5">
+                  <i data-lucide="thumbs-up" class="w-4 h-4"></i> Identified Strengths
+                </h3>
+                <ul class="space-y-2 text-xs text-slate-700 list-disc pl-4">
+                  ${ai.strengths.map(s => `<li>${escapeHtml(s)}</li>`).join("")}
+                </ul>
+              </div>
+              <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+                <h3 class="font-bold text-sm text-amber-700 mb-3 flex items-center gap-1.5">
+                  <i data-lucide="alert-triangle" class="w-4 h-4"></i> Areas for Improvement
+                </h3>
+                <ul class="space-y-2 text-xs text-slate-700 list-disc pl-4">
+                  ${ai.weaknesses.map(w => `<li>${escapeHtml(w)}</li>`).join("")}
+                </ul>
+              </div>
+              <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+                <h3 class="font-bold text-sm text-indigo-700 mb-3 flex items-center gap-1.5">
+                  <i data-lucide="book-open" class="w-4 h-4"></i> Actionable Next Steps
+                </h3>
+                <ul class="space-y-2 text-xs text-slate-700 list-disc pl-4">
+                  ${ai.recommendations.map(r => `<li>${escapeHtml(r)}</li>`).join("")}
+                </ul>
+              </div>
+            </div>
+          ` : `
+            <div class="bg-white p-8 rounded-2xl border border-slate-200 text-center">
+              <p class="text-sm text-slate-600 mb-4">This submission has not yet been evaluated against the rubric.</p>
+              <button onclick="runAiOnExisting('${sub.id}')" class="px-5 py-2.5 rounded-xl bg-emerald-600 text-white text-xs font-bold">Run Rubric Evaluation Now</button>
+            </div>
+          `}
+        </div>
+      `;
+    }
+
+    window.runAiOnExisting = function(subId) {
+      const sub = state.assessmentSubmissions.find(s => s.id === subId);
+      if (sub) runAiAssessmentForSubmission(sub);
+    };
+
+    // 12 & 13. DIGITAL SKILLS PASSPORT & PUBLIC VERIFICATION PAGE
+    function renderPassportView(isPublicVerifyMode = false) {
+      const allProfiles = Object.values(state.applicantProfiles);
+      const profile = allProfiles.find(p => p.passportId === state.selectedPassportId) || allProfiles[0];
+      const submissions = state.assessmentSubmissions.filter(s => s.applicantUid === profile.uid);
+      const isConsentBlocked = isPublicVerifyMode && !profile.privacy?.publicPassport;
+
+      return `
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 no-print">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-wider text-emerald-600">
+                ${isPublicVerifyMode ? "Module 6 — Consent-Controlled Public Verification Portal" : "Module 6 — Digital Skills Passport"}
+              </span>
+              <h1 class="text-2xl font-extrabold text-navy-900">
+                ${isPublicVerifyMode ? "Verify Candidate Skill Passport" : "Official Digital Skills Passport"}
+              </h1>
+            </div>
+            <div class="flex flex-wrap items-center gap-2">
+              <select onchange="state.selectedPassportId = this.value; saveState(); renderApp();" class="px-3 py-2 rounded-xl border border-slate-300 bg-white text-xs font-semibold">
+                ${allProfiles.map(p => `<option value="${p.passportId}" ${p.passportId === profile.passportId ? "selected" : ""}>${escapeHtml(p.name)} (${p.passportId})</option>`).join("")}
+              </select>
+              ${!isPublicVerifyMode ? `
+                <button onclick="navigate('passport-verify', '${profile.passportId}')" class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-navy-900 text-xs font-semibold border border-slate-300">
+                  Preview Public Verify Link
+                </button>
+              ` : ""}
+              ${!isConsentBlocked ? `
+                <button onclick="window.print()" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold flex items-center gap-1.5 shadow">
+                  <i data-lucide="printer" class="w-4 h-4"></i>
+                  Export Passport as PDF
+                </button>
+              ` : ""}
+            </div>
+          </div>
+
+          ${isConsentBlocked ? `
+            <div class="bg-white rounded-2xl border border-slate-200 p-12 text-center shadow-sm space-y-3">
+              <div class="w-12 h-12 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center mx-auto">
+                <i data-lucide="lock" class="w-6 h-6"></i>
+              </div>
+              <h2 class="text-xl font-bold text-navy-900">Passport Access Restricted by Applicant Privacy Settings</h2>
+              <p class="text-sm text-slate-600 max-w-md mx-auto">
+                The owner of Passport <strong>${escapeHtml(profile.passportId)}</strong> has set public passport visibility to Private.
+              </p>
+            </div>
+          ` : `
+            <div id="printable-passport" class="bg-white rounded-2xl border-2 border-navy-900 shadow-xl overflow-hidden">
+              <div class="bg-navy-900 text-white p-6 sm:p-8 flex flex-col sm:flex-row justify-between gap-6">
+                <div class="space-y-2">
+                  <div class="flex items-center gap-2">
+                    <i data-lucide="shield-check" class="w-6 h-6 text-emerald-400"></i>
+                    <span class="font-extrabold tracking-wider text-sm text-emerald-400">AI SKILL PASSPORT — PRACTICAL CREDENTIAL RECORD</span>
+                  </div>
+                  <h2 class="text-2xl sm:text-3xl font-extrabold">${escapeHtml(profile.name)}</h2>
+                  <p class="text-sm text-slate-300">${escapeHtml(profile.headline)}</p>
+                  <div class="flex flex-wrap gap-3 text-xs text-slate-300 pt-1">
+                    <span><strong class="text-white">Email:</strong> ${escapeHtml(profile.email || "abdikanicontacts@gmail.com")}</span>
+                    <span>•</span>
+                    <span><strong class="text-white">GitHub:</strong> ${escapeHtml(profile.portfolioLinks?.github || "https://github.com/abdikanicontacts-eng")}</span>
+                  </div>
+                  <div class="flex flex-wrap gap-3 text-xs text-slate-400">
+                    <span><strong class="text-white">Location:</strong> ${escapeHtml(profile.location)}</span>
+                    <span>•</span>
+                    <span><strong class="text-white">Passport ID:</strong> <span class="font-mono text-emerald-300">${escapeHtml(profile.passportId)}</span></span>
+                  </div>
+                </div>
+
+                <div class="bg-white p-3 rounded-xl text-center shrink-0 self-start sm:self-center shadow">
+                  <div id="passport-qr-box" class="w-24 h-24 mx-auto flex items-center justify-center"></div>
+                  <p class="text-[9px] font-mono font-bold text-navy-900 mt-1">${escapeHtml(profile.passportId)}</p>
+                  <p class="text-[8px] text-slate-500">Scan to Verify</p>
+                </div>
+              </div>
+
+              <div class="p-6 sm:p-8 space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pb-6 border-b border-slate-200">
+                  <div class="md:col-span-2 space-y-2">
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500">Professional Summary</h3>
+                    <p class="text-sm text-slate-700 leading-relaxed">${escapeHtml(profile.bio)}</p>
+                  </div>
+                  <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2 text-xs">
+                    <h3 class="font-bold uppercase text-slate-600">Credential Context</h3>
+                    <p class="text-slate-700">
+                      ${profile.certificatesUnavailable
+                        ? "Formal academic certificates marked unavailable/inaccessible; evaluated on practical work and verified evidence."
+                        : "Formal educational notes provided alongside practical evidence."}
+                    </p>
+                    ${profile.privacy?.showEvidenceLinks && profile.portfolioLinks?.github ? `
+                      <div class="pt-1">
+                        <span class="font-semibold text-navy-900">GitHub:</span>
+                        <a href="${escapeHtml(profile.portfolioLinks.github)}" target="_blank" rel="noopener" class="text-emerald-600 hover:underline break-all block">${escapeHtml(profile.portfolioLinks.github)}</a>
+                      </div>
+                    ` : ""}
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex items-center justify-between mb-3">
+                    <h3 class="text-sm font-extrabold uppercase tracking-wider text-navy-900">Skills &amp; Verification Breakdown</h3>
+                    <span class="text-[11px] text-slate-500">Self-Reported vs. AI-Assessed vs. Human-Verified</span>
+                  </div>
+                  <div class="overflow-x-auto border border-slate-200 rounded-xl">
+                    <table class="w-full text-left border-collapse text-xs sm:text-sm">
+                      <thead>
+                        <tr class="bg-slate-100 text-slate-700 text-xs uppercase">
+                          <th class="py-2.5 px-4">Skill Domain</th>
+                          <th class="py-2.5 px-4">Level</th>
+                          <th class="py-2.5 px-4">Rubric Score</th>
+                          <th class="py-2.5 px-4">Verification Tier</th>
+                        </tr>
+                      </thead>
+                      <tbody class="divide-y divide-slate-200">
+                        ${profile.selectedSkills.map(s => `
+                          <tr>
+                            <td class="py-3 px-4 font-bold text-navy-900">
+                              ${escapeHtml(s.name)}
+                              <span class="block text-[11px] font-normal text-slate-500">${escapeHtml(s.category)}</span>
+                            </td>
+                            <td class="py-3 px-4 text-slate-700">${escapeHtml(s.level || "Assessed")}</td>
+                            <td class="py-3 px-4 font-mono font-bold text-navy-900">${s.score ? `${s.score}/100` : "N/A (Self-Claim)"}</td>
+                            <td class="py-3 px-4">${getStatusBadge(s.status)}</td>
+                          </tr>
+                        `).join("")}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <div class="space-y-3">
+                  <h3 class="text-sm font-extrabold uppercase tracking-wider text-navy-900">Practical Assessment Evidence &amp; Verification Records</h3>
+                  ${submissions.length === 0 ? `
+                    <p class="text-xs text-slate-500">No practical assessment submissions recorded yet for this passport.</p>
+                  ` : submissions.map(sub => `
+                    <div class="p-4 rounded-xl border border-slate-200 bg-slate-50/60 space-y-2 text-xs">
+                      <div class="flex flex-wrap items-center justify-between gap-2">
+                        <span class="font-bold text-sm text-navy-900">${escapeHtml(sub.assessmentTitle)}</span>
+                        ${getStatusBadge(sub.status)}
+                      </div>
+                      <p class="text-slate-600">
+                        <strong>Date:</strong> ${new Date(sub.submittedAt).toLocaleDateString()} •
+                        <strong>AI Score:</strong> ${sub.aiResult ? `${sub.aiResult.overallScore}/100` : "Pending"}
+                      </p>
+                      ${profile.privacy?.showEvidenceLinks ? `
+                        <p class="text-slate-600">
+                          <strong>GitHub:</strong> ${escapeHtml(sub.evidence.repoUrl || "https://github.com/abdikanicontacts-eng")} • <strong>Source Code:</strong> ${sub.evidence.sourceCode?.length || 0} chars
+                        </p>
+                      ` : ""}
+                      ${sub.humanVerification ? `
+                        <div class="p-3 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-950 mt-2">
+                          <p><strong>Human Assessor Sign-Off:</strong> ${escapeHtml(sub.humanVerification.assessorName)} (${escapeHtml(sub.humanVerification.assessorTitle || "Assessor")}) on ${new Date(sub.humanVerification.verifiedAt).toLocaleDateString()}</p>
+                          <p class="mt-1"><strong>Decision Notes:</strong> ${escapeHtml(sub.humanVerification.comments)}</p>
+                        </div>
+                      ` : `
+                        <p class="text-amber-700 italic">Currently AI-Assessed. Awaiting independent Human Assessor sign-off for Human-Verified status.</p>
+                      `}
+                    </div>
+                  `).join("")}
+                </div>
+
+                <div class="p-4 rounded-xl bg-slate-100 border border-slate-300 text-[11px] text-slate-600 leading-relaxed">
+                  <strong>Credential Transparency Statement:</strong> This Digital Skills Passport documents practical, evidence-based skill evaluations on AI Skill Passport. AI-Assessed scores reflect automated rubric inspection and do not constitute human verification. Neither AI-Assessed nor Human-Verified records represent a government-issued qualification or accredited university degree.
+                </div>
+              </div>
+            </div>
+          `}
+        </div>
+      `;
+    }
+
+    function renderPassportQrCode() {
+      const box = document.getElementById("passport-qr-box");
+      if (!box || typeof qrcode === "undefined") return;
+      const verifyUrl = `${window.location.origin}${window.location.pathname}#verify-${state.selectedPassportId}`;
+      const qr = qrcode(0, "M");
+      qr.addData(verifyUrl);
+      qr.make();
+      box.innerHTML = qr.createSvgTag({ scalable: true, margin: 0 });
+      const svg = box.querySelector("svg");
+      if (svg) {
+        svg.style.width = "100%";
+        svg.style.height = "100%";
+      }
+    }
+
+    // 14. ASSESSOR DASHBOARD
+    function renderAssessorDashboardView() {
+      const selectedSub = state.assessmentSubmissions.find(s => s.id === state.selectedSubmissionId) || state.assessmentSubmissions[0];
+      const currentUser = getCurrentUser();
+
+      return `
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+          <div class="bg-navy-900 text-white rounded-2xl p-6 sm:p-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-wider text-amber-400">Module 8 — Human Assessor &amp; Verification Console</span>
+              <h1 class="text-2xl sm:text-3xl font-extrabold mt-1">Evidence Review &amp; Verification Queue</h1>
+              <p class="text-xs sm:text-sm text-slate-300 mt-1">Inspect submitted source code, links, and rubric scores before recording a human verification decision.</p>
+            </div>
+            <div class="text-xs bg-navy-800 border border-slate-700 px-4 py-3 rounded-xl">
+              <p class="text-slate-400">Active Verifier</p>
+              <p class="font-bold text-white">${escapeHtml(currentUser?.name || "Dr. Samuel Ochieng")}</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <div class="lg:col-span-4 space-y-3">
+              <h2 class="text-sm font-bold uppercase tracking-wider text-slate-600">Submissions Queue (${state.assessmentSubmissions.length})</h2>
+              ${state.assessmentSubmissions.map(sub => {
+                const active = selectedSub && sub.id === selectedSub.id;
+                return `
+                  <button onclick="state.selectedSubmissionId = '${sub.id}'; saveState(); renderApp();" class="w-full text-left p-4 rounded-2xl border transition ${active ? "bg-navy-900 text-white border-navy-900 shadow-md" : "bg-white text-navy-900 border-slate-200 hover:border-emerald-400"}">
+                    <div class="flex items-center justify-between gap-2 mb-1.5">
+                      <span class="font-mono text-xs ${active ? "text-emerald-400" : "text-slate-500"}">${escapeHtml(sub.passportId)}</span>
+                      ${getStatusBadge(sub.status)}
+                    </div>
+                    <div class="font-bold text-sm">${escapeHtml(sub.applicantName)}</div>
+                    <div class="text-xs ${active ? "text-slate-300" : "text-slate-500"} mt-0.5">${escapeHtml(sub.assessmentTitle)}</div>
+                    <div class="text-[11px] ${active ? "text-emerald-300" : "text-indigo-600"} font-semibold mt-2">
+                      AI Rubric Score: ${sub.aiResult ? `${sub.aiResult.overallScore}/100` : "Not Run"}
+                    </div>
+                  </button>
+                `;
+              }).join("")}
+            </div>
+
+            <div class="lg:col-span-8">
+              ${selectedSub ? `
+                <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-6">
+                  <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-200">
+                    <div>
+                      <h2 class="text-xl font-extrabold text-navy-900">${escapeHtml(selectedSub.applicantName)} — Evidence Inspection</h2>
+                      <p class="text-xs text-slate-500">Passport ID: ${escapeHtml(selectedSub.passportId)} • Assessment: ${escapeHtml(selectedSub.assessmentTitle)}</p>
+                    </div>
+                    ${getStatusBadge(selectedSub.status)}
+                  </div>
+
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                    <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+                      <span class="font-bold text-slate-600 uppercase block mb-1">Evidence Links</span>
+                      <p><strong>Live URL:</strong> <a href="${escapeHtml(selectedSub.evidence.liveUrl || "https://abdikanicontacts-eng.github.io")}" target="_blank" rel="noopener" class="text-emerald-600 underline break-all">${escapeHtml(selectedSub.evidence.liveUrl || "N/A")}</a></p>
+                      <p class="mt-1"><strong>GitHub URL:</strong> <a href="${escapeHtml(selectedSub.evidence.repoUrl || "https://github.com/abdikanicontacts-eng")}" target="_blank" rel="noopener" class="text-emerald-600 underline break-all">${escapeHtml(selectedSub.evidence.repoUrl || "N/A")}</a></p>
+                    </div>
+                    <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+                      <span class="font-bold text-slate-600 uppercase block mb-1">AI Rubric Summary</span>
+                      <p class="text-sm font-extrabold text-indigo-700">${selectedSub.aiResult ? `${selectedSub.aiResult.overallScore} / 100` : "Pending"}</p>
+                      <p class="text-slate-600 mt-1">${escapeHtml(selectedSub.aiResult?.strengths?.[0] || "Inspect source code below.")}</p>
+                    </div>
+                  </div>
+
+                  <div>
+                    <h3 class="text-xs font-bold uppercase text-slate-700 mb-1.5">Applicant Explanation</h3>
+                    <p class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-700 leading-relaxed">
+                      ${escapeHtml(selectedSub.evidence.explanation)}
+                    </p>
+                  </div>
+
+                  <div>
+                    <h3 class="text-xs font-bold uppercase text-slate-700 mb-1.5">Submitted HTML/CSS Source Code</h3>
+                    <pre class="p-4 rounded-xl bg-slate-950 text-emerald-300 font-mono text-xs max-h-60 overflow-auto">${escapeHtml(selectedSub.evidence.sourceCode)}</pre>
+                  </div>
+
+                  <form onsubmit="submitAssessorDecision(event, '${selectedSub.id}')" class="p-5 rounded-2xl bg-emerald-50/50 border border-emerald-200 space-y-4">
+                    <h3 class="text-sm font-extrabold text-navy-900">Record Official Verification Decision</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Verification Decision *</label>
+                        <select id="assessor-decision" class="w-full px-3 py-2.5 rounded-xl border border-slate-300 bg-white text-sm font-semibold">
+                          <option value="Human-Verified">Approve — Issue Human-Verified Status</option>
+                          <option value="Under Review">Mark as Under Review</option>
+                          <option value="Additional Evidence Required">Request Additional Evidence</option>
+                          <option value="Rejected">Reject Submission</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Verified Final Score (0–100) *</label>
+                        <input type="number" id="assessor-score" min="0" max="100" required value="${selectedSub.aiResult?.overallScore || 85}" class="w-full px-3 py-2.5 rounded-xl border border-slate-300 bg-white text-sm font-mono font-bold" />
+                      </div>
+                    </div>
+                    <div>
+                      <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Assessor Feedback &amp; Decision Reason *</label>
+                      <textarea id="assessor-comments" rows="3" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm">${escapeHtml(selectedSub.humanVerification?.comments || "Reviewed semantic HTML5 structure, CSS layout responsiveness, and implementation explanation. Practical capability verified.")}</textarea>
+                    </div>
+                    <div class="flex justify-end">
+                      <button type="submit" class="px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow flex items-center gap-2">
+                        <i data-lucide="badge-check" class="w-4 h-4"></i>
+                        Save Decision &amp; Log Audit Trail
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              ` : ""}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    window.submitAssessorDecision = function(e, subId) {
+      e.preventDefault();
+      const sub = state.assessmentSubmissions.find(s => s.id === subId);
+      if (!sub) return;
+
+      const decision = document.getElementById("assessor-decision").value;
+      const score = parseInt(document.getElementById("assessor-score").value, 10);
+      const comments = document.getElementById("assessor-comments").value.trim();
+      const assessorName = getCurrentUser()?.name || "Dr. Samuel Ochieng";
+
+      sub.status = decision;
+      sub.humanVerification = {
+        assessorUid: getCurrentUser()?.uid || "demo-assessor-1",
+        assessorName,
+        assessorTitle: getCurrentUser()?.title || "Senior Practical Skills Assessor",
+        decision,
+        verifiedScore: score,
+        comments,
+        verifiedAt: new Date().toISOString()
+      };
+
+      const profile = state.applicantProfiles[sub.applicantUid];
+      if (profile) {
+        const skill = profile.selectedSkills.find(s => s.name === sub.skillName || s.category === "Web Development");
+        if (skill) {
+          skill.status = decision;
+          skill.score = score;
+          if (decision === "Human-Verified") {
+            skill.level = score >= 85 ? "Verified Proficient" : "Verified Practitioner";
+          }
+        }
+      }
+
+      addAuditLog(
+        `${assessorName} (Assessor)`,
+        `VERIFICATION_${decision.toUpperCase().replace(/\s+/g, "_")}`,
+        `${sub.passportId} — ${sub.applicantName}`,
+        `Decision: ${decision} (Score: ${score}/100). Reason: ${comments}`
+      );
+      saveState();
+      showToast(`Decision saved: ${sub.applicantName} is now "${decision}".`, "success");
+      renderApp();
+    };
+
+    // 15. EMPLOYER DASHBOARD
+    function renderEmployerDashboardView() {
+      const candidates = Object.values(state.applicantProfiles).filter(p => {
+        if (!p.privacy?.publicPassport) return false;
+        const matchesSkill = !state.candidateSkillFilter || p.selectedSkills.some(s =>
+          s.name.toLowerCase().includes(state.candidateSkillFilter.toLowerCase()) ||
+          s.category.toLowerCase().includes(state.candidateSkillFilter.toLowerCase())
+        );
+        const matchesStatus = state.candidateStatusFilter === "All" || p.selectedSkills.some(s => s.status === state.candidateStatusFilter);
+        return matchesSkill && matchesStatus;
+      });
+
+      return `
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+          <div class="bg-navy-900 text-white rounded-2xl p-6 sm:p-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-wider text-sky-400">Module 9 — Employer &amp; Hiring Partner Portal</span>
+              <h1 class="text-2xl sm:text-3xl font-extrabold mt-1">Skills-First Talent Discovery</h1>
+              <p class="text-xs sm:text-sm text-slate-300 mt-1">Filter candidates by practical skills and verification tier while respecting applicant privacy consent.</p>
+            </div>
+            <button onclick="openPublishOpportunityModal()" class="px-5 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-navy-900 font-bold text-xs sm:text-sm flex items-center gap-2 self-start shadow">
+              <i data-lucide="briefcase" class="w-4 h-4"></i>
+              Publish Opportunity
+            </button>
+          </div>
+
+          <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="md:col-span-2 relative">
+              <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 top-3"></i>
+              <input
+                type="text"
+                value="${escapeHtml(state.candidateSkillFilter)}"
+                oninput="state.candidateSkillFilter = this.value; saveState(); renderApp();"
+                placeholder="Search candidates by skill (e.g., Web Development, Translation)..."
+                class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-300 text-sm outline-none focus:ring-2 focus:ring-emerald-500"
+              />
+            </div>
+            <div>
+              <select onchange="state.candidateStatusFilter = this.value; saveState(); renderApp();" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm font-medium">
+                <option value="All" ${state.candidateStatusFilter === "All" ? "selected" : ""}>All Verification Tiers</option>
+                <option value="Human-Verified" ${state.candidateStatusFilter === "Human-Verified" ? "selected" : ""}>Human-Verified Only</option>
+                <option value="AI-Assessed" ${state.candidateStatusFilter === "AI-Assessed" ? "selected" : ""}>AI-Assessed &amp; Above</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            ${candidates.length === 0 ? `
+              <div class="col-span-full bg-white p-10 rounded-2xl border border-slate-200 text-center text-sm text-slate-500">
+                No public candidates match your current filter.
+              </div>
+            ` : candidates.map(cand => `
+              <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm flex flex-col justify-between space-y-4">
+                <div>
+                  <div class="flex items-center justify-between gap-2 mb-2">
+                    <span class="font-mono text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded border border-emerald-200">${escapeHtml(cand.passportId)}</span>
+                    <span class="text-xs text-slate-500">${escapeHtml(cand.location)}</span>
+                  </div>
+                  <h3 class="text-lg font-extrabold text-navy-900">${escapeHtml(cand.name)}</h3>
+                  <p class="text-xs text-slate-500">${escapeHtml(cand.headline)}</p>
+                  <p class="text-xs text-slate-600 mt-3">${escapeHtml(cand.bio)}</p>
+
+                  <div class="mt-4 space-y-2">
+                    <span class="text-[11px] font-bold uppercase text-slate-500">Skills:</span>
+                    <div class="flex flex-wrap gap-1.5">
+                      ${cand.selectedSkills.map(s => `
+                        <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-100 text-xs font-medium text-navy-900">
+                          ${escapeHtml(s.name)}
+                          <span class="text-[10px] font-bold ${s.status === 'Human-Verified' ? 'text-emerald-600' : s.status === 'AI-Assessed' ? 'text-indigo-600' : 'text-slate-500'}">(${s.status})</span>
+                        </span>
+                      `).join("")}
+                    </div>
+                  </div>
+                </div>
+
+                <div class="pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2">
+                  <button onclick="navigate('passport-verify', '${cand.passportId}')" class="px-3.5 py-2 rounded-xl bg-navy-900 hover:bg-navy-800 text-white text-xs font-bold">
+                    Inspect Passport &amp; Evidence
+                  </button>
+                  ${cand.privacy?.allowEmployerContact ? `
+                    <button onclick="openContactCandidateModal('${cand.uid}', '${escapeHtml(cand.name)}', '${cand.passportId}')" class="px-3.5 py-2 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 text-xs font-bold">
+                      Contact Candidate
+                    </button>
+                  ` : `
+                    <span class="text-[11px] text-slate-400 italic">Contact disabled by candidate</span>
+                  `}
+                </div>
+              </div>
+            `).join("")}
+          </div>
+        </div>
+      `;
+    }
+
+    window.openContactCandidateModal = function(uid, name, passportId) {
+      openModal(
+        `Permission-Based Contact — ${name}`,
+        `
+          <p class="text-xs text-slate-600">Candidate has enabled employer contact for Passport <strong>${escapeHtml(passportId)}</strong>.</p>
+          <div>
+            <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Opportunity Title *</label>
+            <input type="text" id="contact-role" value="Junior Frontend Web Developer" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Message *</label>
+            <textarea id="contact-msg" rows="3" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm">Hello ${name}, we reviewed your Skill Passport (${passportId}) and would love to connect regarding an opportunity.</textarea>
+          </div>
+        `,
+        `
+          <button onclick="closeModal()" class="px-4 py-2 rounded-xl border border-slate-300 text-xs font-semibold">Cancel</button>
+          <button onclick="sendCandidateContact('${uid}', '${name}', '${passportId}')" class="px-4 py-2 rounded-xl bg-emerald-600 text-white text-xs font-bold">Send Message</button>
+        `
+      );
+    };
+
+    window.sendCandidateContact = function(uid, name, passportId) {
+      const roleTitle = document.getElementById("contact-role").value.trim();
+      const msg = document.getElementById("contact-msg").value.trim();
+      if (!roleTitle || !msg) return showToast("Please complete role title and message.", "error");
+
+      state.contactRequests.push({
+        id: "req-" + Date.now(),
+        candidateUid: uid,
+        passportId,
+        employer: getCurrentUser()?.company || getCurrentUser()?.name || "Savannah Cloud Solutions",
+        roleTitle,
+        msg,
+        sentAt: new Date().toISOString()
+      });
+      addAuditLog(getCurrentUser()?.name || "Employer", "EMPLOYER_CONTACT_SENT", `${passportId} (${name})`, `Sent authorized message for ${roleTitle}.`);
+      saveState();
+      closeModal();
+      showToast(`Authorized message sent to ${name}.`, "success");
+    };
+
+    window.openPublishOpportunityModal = function() {
+      openModal(
+        "Publish Certificate-Optional Opportunity",
+        `
+          <div class="space-y-3">
+            <div>
+              <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Role / Fellowship Title *</label>
+              <input type="text" id="opp-title" placeholder="e.g., Frontend Web Developer" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm" />
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Primary Skill</label>
+                <select id="opp-skill" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm bg-white">
+                  ${SKILL_CATEGORIES.map(c => `<option value="${c}">${c}</option>`).join("")}
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Compensation</label>
+                <input type="text" id="opp-pay" placeholder="e.g., $700/month" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm" />
+              </div>
+            </div>
+            <div>
+              <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Location</label>
+              <input type="text" id="opp-loc" value="Remote / Nairobi" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm" />
+            </div>
+            <div>
+              <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Description *</label>
+              <textarea id="opp-desc" rows="3" placeholder="Describe practical work and requirements..." class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm"></textarea>
+            </div>
+          </div>
+        `,
+        `
+          <button onclick="closeModal()" class="px-4 py-2 rounded-xl border border-slate-300 text-xs font-semibold">Cancel</button>
+          <button onclick="submitNewOpportunity()" class="px-4 py-2 rounded-xl bg-emerald-600 text-white text-xs font-bold">Publish</button>
+        `
+      );
+    };
+
+    window.submitNewOpportunity = function() {
+      const title = document.getElementById("opp-title").value.trim();
+      const requiredSkill = document.getElementById("opp-skill").value;
+      const stipendOrSalary = document.getElementById("opp-pay").value.trim() || "Competitive";
+      const location = document.getElementById("opp-loc").value.trim() || "Remote";
+      const description = document.getElementById("opp-desc").value.trim();
+      if (!title || !description) return showToast("Title and description are required.", "error");
+
+      const opp = {
+        id: "opp-" + Date.now(),
+        title,
+        company: getCurrentUser()?.company || getCurrentUser()?.name || "Partner Organization",
+        employerUid: getCurrentUser()?.uid || "demo-employer-1",
+        location,
+        type: "Skills-First Role",
+        requiredSkill,
+        acceptsNoCertificates: true,
+        description,
+        stipendOrSalary,
+        postedAt: new Date().toISOString().slice(0, 10),
+        isDemo: false
+      };
+
+      state.opportunities.unshift(opp);
+      addAuditLog(opp.company, "PUBLISHED_OPPORTUNITY", title, `Published opportunity under ${requiredSkill}.`);
+      saveState();
+      closeModal();
+      showToast(`Published "${title}".`, "success");
+      renderApp();
+    };
+
+    // 16. OPPORTUNITIES PAGE
+    function renderOpportunitiesView() {
+      const profile = getActiveApplicantProfile();
+      return `
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-wider text-emerald-600">Module 10 — Career Development &amp; Opportunities</span>
+              <h1 class="text-2xl sm:text-3xl font-extrabold text-navy-900 mt-1">Certificate-Optional Roles &amp; Fellowships</h1>
+              <p class="text-sm text-slate-600 mt-1">Apply using your Digital Skills Passport and practical evidence.</p>
+            </div>
+            <button onclick="navigate('passport', '${profile.passportId}')" class="px-4 py-2.5 rounded-xl bg-navy-900 text-white text-xs font-bold self-start">
+              My Passport: ${escapeHtml(profile.passportId)}
+            </button>
+          </div>
+
+          <div class="space-y-4">
+            ${state.opportunities.map(opp => {
+              const applied = state.applications.some(a => a.opportunityId === opp.id && a.applicantUid === profile.uid);
+              return `
+                <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-6">
+                  <div class="space-y-2 max-w-3xl">
+                    <div class="flex flex-wrap items-center gap-2 text-xs">
+                      <span class="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-bold">No Paper Certificates Required</span>
+                      <span class="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700 font-semibold">${escapeHtml(opp.requiredSkill)}</span>
+                      <span class="text-slate-500">${escapeHtml(opp.type)} • ${escapeHtml(opp.location)}</span>
+                    </div>
+                    <h2 class="text-lg font-extrabold text-navy-900">${escapeHtml(opp.title)}</h2>
+                    <p class="text-xs font-semibold text-slate-600">${escapeHtml(opp.company)} • <span class="text-emerald-700">${escapeHtml(opp.stipendOrSalary)}</span></p>
+                    <p class="text-sm text-slate-600 leading-relaxed">${escapeHtml(opp.description)}</p>
+                  </div>
+                  <div class="shrink-0">
+                    ${applied ? `
+                      <span class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-bold">
+                        <i data-lucide="check-circle" class="w-4 h-4"></i> Applied with Skill Passport
+                      </span>
+                    ` : `
+                      <button onclick="applyWithSkillPassport('${opp.id}')" class="px-5 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shadow">
+                        Apply with Skill Passport
+                      </button>
+                    `}
+                  </div>
+                </div>
+              `;
+            }).join("")}
+          </div>
+        </div>
+      `;
+    }
+
+    window.applyWithSkillPassport = function(oppId) {
+      const opp = state.opportunities.find(o => o.id === oppId);
+      const profile = getActiveApplicantProfile();
+      if (!opp || !profile) return;
+
+      state.applications.push({
+        id: "app-" + Date.now(),
+        opportunityId: opp.id,
+        applicantUid: profile.uid,
+        passportId: profile.passportId,
+        appliedAt: new Date().toISOString()
+      });
+      addAuditLog(profile.name, "APPLIED_WITH_PASSPORT", `${opp.title} (${opp.company})`, `Applied using Passport ${profile.passportId}.`);
+      saveState();
+      showToast(`Application submitted to ${opp.company} with Passport ${profile.passportId}.`, "success");
+      renderApp();
+    };
+
+    // 17. SETTINGS, PRIVACY & AUDIT LOGS
+    function renderSettingsView() {
+      const profile = getActiveApplicantProfile();
+      return `
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-emerald-600">Governance, Privacy &amp; Audit Trail</span>
+            <h1 class="text-2xl sm:text-3xl font-extrabold text-navy-900 mt-1">Privacy Controls &amp; Verification Audit Log</h1>
+            <p class="text-sm text-slate-600 mt-1">Manage consent controls and review recorded platform actions.</p>
+          </div>
+
+          <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4">
+            <h2 class="text-lg font-bold text-navy-900">Applicant Consent Controls (${escapeHtml(profile.name)} — ${escapeHtml(profile.passportId)})</h2>
+            <div class="space-y-3 text-sm">
+              <label class="flex items-center justify-between p-3.5 rounded-xl bg-slate-50 border border-slate-200 cursor-pointer">
+                <div>
+                  <span class="font-bold text-navy-900 block">Public Digital Skills Passport Verification</span>
+                  <span class="text-xs text-slate-500">Allow verification via QR code or Passport ID when enabled.</span>
+                </div>
+                <input type="checkbox" ${profile.privacy?.publicPassport ? "checked" : ""} onchange="updatePrivacySetting('publicPassport', this.checked)" class="w-5 h-5 rounded text-emerald-600" />
+              </label>
+
+              <label class="flex items-center justify-between p-3.5 rounded-xl bg-slate-50 border border-slate-200 cursor-pointer">
+                <div>
+                  <span class="font-bold text-navy-900 block">Allow Employer Interview &amp; Opportunity Messages</span>
+                  <span class="text-xs text-slate-500">Let employers send messages with your consent.</span>
+                </div>
+                <input type="checkbox" ${profile.privacy?.allowEmployerContact ? "checked" : ""} onchange="updatePrivacySetting('allowEmployerContact', this.checked)" class="w-5 h-5 rounded text-emerald-600" />
+              </label>
+
+              <label class="flex items-center justify-between p-3.5 rounded-xl bg-slate-50 border border-slate-200 cursor-pointer">
+                <div>
+                  <span class="font-bold text-navy-900 block">Display Live &amp; GitHub Evidence Links</span>
+                  <span class="text-xs text-slate-500">Show your GitHub and project links on your passport.</span>
+                </div>
+                <input type="checkbox" ${profile.privacy?.showEvidenceLinks ? "checked" : ""} onchange="updatePrivacySetting('showEvidenceLinks', this.checked)" class="w-5 h-5 rounded text-emerald-600" />
+              </label>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+            <div class="px-6 py-4 bg-navy-900 text-white flex items-center justify-between">
+              <div>
+                <h2 class="text-base font-bold">Platform Verification &amp; Governance Audit Trail</h2>
+                <p class="text-xs text-slate-300">Tracks submissions, rubric evaluations, assessor decisions, and privacy changes.</p>
+              </div>
+              <span class="text-xs font-mono text-emerald-400">${state.auditLogs.length} Records</span>
+            </div>
+            <div class="divide-y divide-slate-100 max-h-96 overflow-y-auto">
+              ${state.auditLogs.map(log => `
+                <div class="p-4 text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                  <div>
+                    <div class="flex items-center gap-2">
+                      <span class="font-mono font-bold text-emerald-700">${escapeHtml(log.action)}</span>
+                      <span class="font-bold text-navy-900">• ${escapeHtml(log.target)}</span>
+                    </div>
+                    <p class="text-slate-600 mt-0.5">${escapeHtml(log.details)}</p>
+                  </div>
+                  <div class="text-slate-400 font-mono shrink-0 text-[11px]">
+                    ${escapeHtml(log.actor)}<br/>${escapeHtml(log.timestamp)}
+                  </div>
+                </div>
+              `).join("")}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    window.updatePrivacySetting = function(key, val) {
+      const profile = getActiveApplicantProfile();
+      if (!profile.privacy) profile.privacy = {};
+      profile.privacy[key] = val;
+      addAuditLog(profile.name, "PRIVACY_UPDATED", `${profile.passportId} (${key})`, `Set ${key} = ${val}`);
+      saveState();
+      showToast(`Privacy setting "${key}" updated.`, "success");
+    };
+
+    // Master Render
+    window.renderApp = function() {
+      renderNavigation();
+      const root = document.getElementById("app-root");
+      if (!root) return;
+
+      switch (state.currentView) {
+        case "landing":
+          root.innerHTML = renderLandingView();
+          break;
+        case "about":
+          root.innerHTML = renderAboutView();
+          break;
+        case "register":
+          root.innerHTML = renderAuthView("register");
+          break;
+        case "login":
+          root.innerHTML = renderAuthView("login");
+          break;
+        case "applicant-dashboard":
+          root.innerHTML = renderApplicantDashboardView();
+          break;
+        case "profile":
+          root.innerHTML = renderApplicantProfileView();
+          break;
+        case "skills":
+          root.innerHTML = renderSkillsCatalogueView();
+          break;
+        case "assessment-details":
+          root.innerHTML = renderAssessmentDetailsView();
+          break;
+        case "assessment-workspace":
+          root.innerHTML = renderAssessmentWorkspaceView();
+          setTimeout(updateWorkspacePreview, 0);
+          break;
+        case "evidence-submit":
+          root.innerHTML = renderEvidenceSubmissionView();
+          break;
+        case "assessment-results":
+          root.innerHTML = renderAssessmentResultsView();
+          break;
+        case "passport":
+          root.innerHTML = renderPassportView(false);
+          setTimeout(renderPassportQrCode, 0);
+          break;
+        case "passport-verify":
+          root.innerHTML = renderPassportView(true);
+          setTimeout(renderPassportQrCode, 0);
+          break;
+        case "assessor-dashboard":
+          root.innerHTML = renderAssessorDashboardView();
+          break;
+        case "employer-dashboard":
+          root.innerHTML = renderEmployerDashboardView();
+          break;
+        case "opportunities":
+          root.innerHTML = renderOpportunitiesView();
+          break;
+        case "settings":
+          root.innerHTML = renderSettingsView();
+          break;
+        default:
+          root.innerHTML = renderLandingView();
+      }
+
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+    };
+
+    if (window.location.hash && window.location.hash.startsWith("#verify-")) {
+      state.selectedPassportId = window.location.hash.replace("#verify-", "");
+      state.currentView = "passport-verify";
+    }
+
+    renderApp();
+  </script>
+</body>
+</html>
